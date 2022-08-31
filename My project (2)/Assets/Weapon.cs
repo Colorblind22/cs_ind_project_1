@@ -26,7 +26,7 @@ public class Weapon : MonoBehaviour
         pivot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         cam.ScreenToWorldPoint(Input.mousePosition);
 
-        if(Input.GetButtonDown("Fire1"))
+        if(Input.GetButtonDown("Fire1") && !PauseMenu.GamePaused)
         {
             Debug.Log($"Mouse held at position {Input.mousePosition}\nPlayer at {cam.ScreenToWorldPoint(pivot.position)}");
             Fire();

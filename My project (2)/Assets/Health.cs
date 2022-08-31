@@ -12,7 +12,7 @@ public class Health : MonoBehaviour
 
     private void Start() {
         this.health = this.maxHealth;
-        healthBar.SetHealth(this.health/this.maxHealth);
+        if(healthBar is not null) healthBar.SetHealth(this.health/this.maxHealth);
     }
 
     public float GetHealth()
@@ -29,6 +29,9 @@ public class Health : MonoBehaviour
             Destroy(gameObject);
         }
 
-        healthBar.SetHealth(this.health/this.maxHealth);
+        if(healthBar is not null)
+        {
+            healthBar.SetHealth(this.health/this.maxHealth);
+        }
     }
 }
