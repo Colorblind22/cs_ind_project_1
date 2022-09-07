@@ -28,7 +28,6 @@ public class Weapon : MonoBehaviour
 
         if(Input.GetButtonDown("Fire1") && !PauseMenu.GamePaused)
         {
-            Debug.Log($"Mouse held at position {Input.mousePosition}\nPlayer at {cam.ScreenToWorldPoint(pivot.position)}");
             Fire();
         }
     }

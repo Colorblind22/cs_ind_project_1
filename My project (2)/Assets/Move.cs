@@ -4,23 +4,22 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-    /* Start is called before the first frame update
-    void Start()
-    {
-      Cursor.lockState = CursorLockMode.Locked;  
-    }*/
-
-    public Transform player;
-
+    public Rigidbody2D player;
     public float moveSpeed = 5.0f;
-
+    float vertical;
+    float horizontal;
+    Vector2 move;
     // Update is called once per frame
     void Update()
     {
-        float vertical = Input.GetAxis("Vertical");
-        float horizontal = Input.GetAxis("Horizontal");
-        float dt = Time.deltaTime;
+        move.y = Input.GetAxis("Vertical");
+        move.x = Input.GetAxis("Horizontal");
 
-        player.Translate(horizontal*moveSpeed*dt, vertical*moveSpeed*dt, 0);
+        //player.Translate(horizontal*moveSpeed*dt, vertical*moveSpeed*dt, 0);
+    }
+
+    void FixedUpdate() 
+    {
+        player.MovePosition(player.position + move * moveSpeed * Time.fixedDeltaTime);
     }
 }

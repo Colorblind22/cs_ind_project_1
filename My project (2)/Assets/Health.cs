@@ -23,15 +23,22 @@ public class Health : MonoBehaviour
     public void Damage(float inflict)
     {
         this.health -= inflict;
+        Debug.Log($"{gameObject.name} takes {inflict} damage ({this.health}/{this.maxHealth})");
 
         if(this.health <= 0)
         {
-            Destroy(gameObject);
+            Debug.Log($"{gameObject.name} died");
+            Die();
         }
 
         if(healthBar is not null)
         {
             healthBar.SetHealth(this.health/this.maxHealth);
         }
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
     }
 }
