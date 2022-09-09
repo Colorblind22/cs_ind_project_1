@@ -8,6 +8,8 @@ public class HealthBar : MonoBehaviour
     public float timeShown = 3f;
     public GameObject obj;
     public Slider slider;
+    public Gradient color;
+    public Image fill;
     private float currentTime;
     
     public HealthBar(Transform parent, GameObject bar)
@@ -18,6 +20,7 @@ public class HealthBar : MonoBehaviour
     public void SetHealth(float healthPercentage)
     {
         Show();
+        this.fill.color = this.color.Evaluate(healthPercentage);
         this.slider.value = healthPercentage;
     }
 

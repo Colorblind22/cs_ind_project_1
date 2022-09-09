@@ -10,11 +10,12 @@ public class ProjectileHandler : MonoBehaviour
     {
         Health enemy = other.GetComponent<Health>();
 
-        
         if(enemy != null)
         {
             enemy.Damage(this.damage);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        else if(other.GetComponent<ProjectileHandler>() != null) return;
+        else Destroy(gameObject);
     }
 }

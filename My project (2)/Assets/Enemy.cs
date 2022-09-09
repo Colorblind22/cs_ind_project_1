@@ -13,7 +13,18 @@ public class Enemy : MonoBehaviour
     public float moveSpeed = 5f;
     public float projectileForce = 5f;
     public float visionRange = 5f;
+    public float fireCooldown = 1.5f;
+    private float fireTimer;
 
+    void Start()
+    {
+        this.fireTimer = this.fireCooldown;
+    }
+
+    void OnDestroy()
+    {
+        
+    }
 
     // Update is called once per frame
     void Update()
@@ -26,7 +37,7 @@ public class Enemy : MonoBehaviour
 
         //pivot.LookAt(player);
 
-        if(Input.GetButtonDown("Jump") && !PauseMenu.GamePaused)
+        if(fireTimer <= 0 && !PauseMenu.GamePaused)
         {
             Fire();
         }
@@ -38,8 +49,9 @@ public class Enemy : MonoBehaviour
         if(DistanceFromPlayer() > visionRange)
         {
             rigidBody.MovePosition(rigidBody.position + dir * moveSpeed * Time.fixedDeltaTime);
+            this.fireTimer = this.fireCooldown;
         }
-               
+        else if(!PauseMenu.GamePaused && fireTimer > 0) fireTimer -= Time.deltaTime;
     }
 
     float DistanceFromPlayer()
@@ -58,5 +70,6 @@ public class Enemy : MonoBehaviour
         GameObject projectile = Instantiate(projectilePrefab, barrel.position, barrel.rotation);
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         rb.AddForce(barrel.right * projectileForce, ForceMode2D.Impulse);
+        this.fireTimer = this.fireCooldown;
     }
 }
