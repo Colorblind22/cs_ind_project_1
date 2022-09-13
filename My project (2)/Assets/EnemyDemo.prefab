@@ -321,6 +321,7 @@ MonoBehaviour:
   moveSpeed: 2
   projectileForce: 5
   visionRange: 5
+  fireCooldown: 0.45
 --- !u!1001 &3842859218695609471
 PrefabInstance:
   m_ObjectHideFlags: 0

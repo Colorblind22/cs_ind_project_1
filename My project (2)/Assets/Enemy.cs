@@ -21,11 +21,6 @@ public class Enemy : MonoBehaviour
         this.fireTimer = this.fireCooldown;
     }
 
-    void OnDestroy()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
