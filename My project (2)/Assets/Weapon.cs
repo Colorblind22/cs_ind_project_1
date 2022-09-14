@@ -15,6 +15,8 @@ public class Weapon : MonoBehaviour
     public GameObject projectilePrefab;
     public Camera cam;
     public float projectileForce = 25f;
+    public float fireInterval = .5f;
+    private float fireCooldown = 0f;
 
 
     // Update is called once per frame
@@ -26,10 +28,12 @@ public class Weapon : MonoBehaviour
         if(!PauseMenu.GamePaused) pivot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         cam.ScreenToWorldPoint(Input.mousePosition);
 
-        if(Input.GetButtonDown("Fire1") && !PauseMenu.GamePaused)
+        if(Input.GetButton("Fire1") && !PauseMenu.GamePaused && this.fireCooldown <= 0)
         {
             Fire();
+            this.fireCooldown = this.fireInterval;
         }
+        else if(Input.GetButton("Fire1")) this.fireCooldown -= Time.deltaTime;
     }
 
     void Fire()

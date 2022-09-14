@@ -43,10 +43,11 @@ public class Enemy : MonoBehaviour
         Vector2 dir = player.position - pivot.position;
         if(DistanceFromPlayer() > visionRange)
         {
-            rigidBody.AddForce((new Vector2(player.position.x, player.position.y)) + dir * moveSpeed * Time.fixedDeltaTime);
+            rigidBody.AddForce((new Vector2(player.position.x-pivot.position.x, player.position.y-pivot.position.y)) * moveSpeed * Time.fixedDeltaTime);
             this.fireTimer = this.fireCooldown;
         }
         else if(!PauseMenu.GamePaused && fireTimer > 0) fireTimer -= Time.deltaTime;
+        else this.fireCooldown = 0;
     }
 
     float DistanceFromPlayer()

@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 1490878767828159223}
   maxHealth: 100
+  director: {fileID: 0}
   healthBar: {fileID: 241999693980313951}
 --- !u!50 &1490878767828159222
 Rigidbody2D:
@@ -318,9 +319,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 736251005639104287, guid: 19b22a59ba130014f9acfbe4e0f9949f, type: 3}
   cam: {fileID: 0}
   player: {fileID: 0}
-  moveSpeed: 2
+  moveSpeed: 100
   projectileForce: 5
-  visionRange: 5
+  visionRange: 10
   fireCooldown: 0.45
 --- !u!1001 &3842859218695609471
 PrefabInstance:

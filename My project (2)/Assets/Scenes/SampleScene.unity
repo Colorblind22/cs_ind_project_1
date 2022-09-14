@@ -711,6 +711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 82277366}
   maxHealth: 100
+  director: {fileID: 0}
   healthBar: {fileID: 1768112686}
 --- !u!1 &114450906
 GameObject:
@@ -2653,6 +2654,7 @@ MonoBehaviour:
   spawnPointContainer: {fileID: 1907579881}
   enemyPrefab: {fileID: 1490878767828159223, guid: cbde0925b34f0e94e81b585a5f22cf57, type: 3}
   player: {fileID: 82277369}
+  cam: {fileID: 519420031}
 --- !u!4 &2050953383
 Transform:
   m_ObjectHideFlags: 0

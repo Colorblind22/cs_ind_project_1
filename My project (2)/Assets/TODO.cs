@@ -5,6 +5,15 @@ using UnityEngine;
 public class TODO : MonoBehaviour
 {
     /* to do
+        -fix the way the enemies move
+        -investigate upgrades
+        
+        
+        
+        
+        
+        
+        
         - implement a threat
         - make a map?
         
