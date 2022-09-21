@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7935343973131750867}
   - component: {fileID: 6200626804630058120}
-  - component: {fileID: 1475246578935060283}
   - component: {fileID: 3041249544137356340}
   - component: {fileID: 5415599559742389192}
+  - component: {fileID: -2281505901802540387}
   m_Layer: 0
   m_Name: EnemyProjectile
   m_TagString: Untagged
@@ -87,19 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1475246578935060283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 736251005639104287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d033d89fe2c21a479c86e54d9ddff87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 12
 --- !u!50 &3041249544137356340
 Rigidbody2D:
   serializedVersion: 4
@@ -137,3 +124,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-2281505901802540387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736251005639104287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f318a82b63e7fb4d88eee7254454d83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 13

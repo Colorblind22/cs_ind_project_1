@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     public float visionRange = 5f;
     public float fireCooldown = 1.5f;
     private float fireTimer;
+    static int enemyProjectiles = 1;
 
     void Start()
     {
@@ -26,16 +27,8 @@ public class Enemy : MonoBehaviour
     {
         Vector2 dir = player.position - pivot.position;
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
         pivot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        //cam.ScreenToWorldPoint(player.position);
-
-        //pivot.LookAt(player);
-
-        if(fireTimer <= 0 && !PauseMenu.GamePaused)
-        {
-            Fire();
-        }
+        if(fireTimer <= 0 && !PauseMenu.GamePaused) Fire();
     }
 
     void FixedUpdate()
@@ -64,6 +57,7 @@ public class Enemy : MonoBehaviour
     void Fire()
     {
         GameObject projectile = Instantiate(projectilePrefab, barrel.position, barrel.rotation);
+        projectile.name = $"Enemy projectile {enemyProjectiles++}";
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         rb.AddForce(barrel.right * projectileForce, ForceMode2D.Impulse);
         this.fireTimer = this.fireCooldown;

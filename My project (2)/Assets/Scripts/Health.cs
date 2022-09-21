@@ -36,9 +36,21 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void Heal()
+    {
+        this.health = this.maxHealth;
+    }
+    
+    public void Heal(float healAmount)
+    {
+        if(this.health + healAmount > this.maxHealth) this.health = this.maxHealth;
+        else this.health += healAmount;
+    }
+
     void Die()
     {
         Debug.Log($"{gameObject.name} died");
+        //if(parent.GetComponentInChildren<Move>() != null) director.PlayerDie();
         Destroy(gameObject);
         if(this.director is not null) this.director.EnemyDie();
     }

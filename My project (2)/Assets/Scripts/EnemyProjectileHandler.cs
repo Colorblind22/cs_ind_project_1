@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileHandler : MonoBehaviour
+public class EnemyProjectileHandler : MonoBehaviour
 {
     public float damage = 25f;
     
@@ -10,12 +10,14 @@ public class ProjectileHandler : MonoBehaviour
     {
         Health enemy = other.GetComponent<Health>();
 
+        if(other.GetComponentInChildren<Enemy>()) return;
+
         if(enemy != null)
         {
             enemy.Damage(this.damage);
             Destroy(gameObject);
         }
-        else if(other.GetComponent<ProjectileHandler>() != null) return;
+        else if(other.GetComponent<ProjectileHandler>() != null || other.GetComponent<EnemyProjectileHandler>() != null) return;
         else Destroy(gameObject);
     }
 }
