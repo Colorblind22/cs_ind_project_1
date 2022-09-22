@@ -16,17 +16,12 @@ public class Director : MonoBehaviour
     public GameObject enemyPrefab;
     public GameObject player;
     public Camera cam;
-
-    private int currency;
-    public TMPro.TMP_Text currencyDisplay;
-    
     
     // Start is called before the first frame update
     void Start()
     {
         this.spawns = spawnPointContainer.GetComponentsInChildren<Transform>(false);
         this.upgrades = upgradeMenu.GetComponent<UpgradeMenu>();
-        this.AddCurrency(0);
         SetWave(1);
     }
 
@@ -39,13 +34,7 @@ public class Director : MonoBehaviour
             OpenUpgradeMenu();
         }
     }
-
-    void AddCurrency(int add)
-    {
-        this.currency += add;
-        currencyDisplay.text = $"{this.currency}";
-    }
-
+    
     void OpenUpgradeMenu()
     {
         upgradeMenu.SetActive(true);
@@ -68,13 +57,13 @@ public class Director : MonoBehaviour
         SetText();
         Spawn();
     }
-    public void SetEnemyCount(int arg) {this.enemyCount = arg;}
+    void SetEnemyCount(int arg) {this.enemyCount = arg;}
     public int GetWave() {return this.wave;}
     public int GetEnemyCount() {return this.enemyCount;}
     public void EnemyDie() 
     {
         this.enemyCount--;
-        this.AddCurrency(2);
+        upgrades.AddCurrency(2);
     }
     
     void Spawn()
@@ -93,11 +82,6 @@ public class Director : MonoBehaviour
         Debug.Log($"\t{this.enemyCount} units spawned");
     }
 
-    public void PlayerDie()
-    {
-        return;
-    }
-    
     void SetText()
     {
         if(waveText is not null) waveText.text = $"Wave {this.wave}";
