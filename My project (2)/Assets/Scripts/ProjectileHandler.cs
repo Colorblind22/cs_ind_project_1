@@ -6,6 +6,13 @@ public class ProjectileHandler : MonoBehaviour
 {
     public float damage;
     
+    public float timeLimit = 10f;
+
+    void LateUpdate()
+    {
+        if (timeLimit > 0) timeLimit -= Time.deltaTime; else Destroy(gameObject);
+    }
+    
     void OnTriggerEnter2D(Collider2D other)
     {
         Health enemy = other.GetComponent<Health>();

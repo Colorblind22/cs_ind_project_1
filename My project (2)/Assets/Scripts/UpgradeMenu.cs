@@ -56,7 +56,7 @@ public class UpgradeMenu : MonoBehaviour
     public void AddCurrency(int add)
     {
         this.currency += add;
-        currencyDisplay.text = $"{this.currency}";
+        UpdateText();
     }
 
     public void UpgradeDamage()
@@ -106,7 +106,7 @@ public class UpgradeMenu : MonoBehaviour
     }
     public void Heal()
     {
-        if(hp.maxHealth < hp.GetHealth() && currency >= healCost)
+        if(hp.maxHealth > hp.GetHealth() && currency >= healCost)
         {
             Debug.Log("Healing");
             hp.Heal(this.healAmount);

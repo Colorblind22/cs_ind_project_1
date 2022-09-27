@@ -9,6 +9,7 @@ public class Director : MonoBehaviour
     public TMPro.TMP_Text waveText;
     private int wave = 0;
     private int enemyCount = 0;
+    public float spawnDistance;
     private Transform[] spawns;
     public GameObject upgradeMenu;
     private UpgradeMenu upgrades;
@@ -16,6 +17,7 @@ public class Director : MonoBehaviour
     public GameObject enemyPrefab;
     public GameObject player;
     public Camera cam;
+    public Animator anim;
     
     // Start is called before the first frame update
     void Start()
@@ -66,12 +68,25 @@ public class Director : MonoBehaviour
         upgrades.AddCurrency(2);
     }
     
+    Vector2 GenerateSpawnPosition()
+    {
+        float a = Random.Range(-this.spawnDistance, this.spawnDistance);
+        float c = this.spawnDistance;
+
+        Vector2 ret;
+        ret.x = player.transform.position.x + a;
+        ret.y = Mathf.Sqrt(Mathf.Pow(c,2)-Mathf.Pow(a,2));
+        ret.y = Random.Range(-1f, 1f) > 0 ? player.transform.position.y + ret.y : player.transform.position.y + ret.y * -1;
+        Debug.Log($"\tgenerated vector: ({ret.x}, {ret.y})");
+        return ret;
+    }
+    
     void Spawn()
     {
         for(int i = 0; i < this.enemyCount; i++) // it feels wrong to have this many vars in a for loop
         {
-            Transform point = this.spawns[Random.Range(0,this.spawns.Length)];
-            GameObject obj = Instantiate(enemyPrefab, point.position, Quaternion.identity);
+            //Transform point = this.spawns[Random.Range(0,this.spawns.Length)];
+            GameObject obj = Instantiate(enemyPrefab, GenerateSpawnPosition()/*point.position*/, Quaternion.identity);
             obj.name = $"Enemy {i+1}";
             Enemy unit = obj.GetComponentInChildren<Enemy>();
             unit.player = this.player.GetComponent<Transform>();
@@ -85,5 +100,6 @@ public class Director : MonoBehaviour
     void SetText()
     {
         if(waveText is not null) waveText.text = $"Wave {this.wave}";
+        anim.SetTrigger("WaveStart");
     }
 }
