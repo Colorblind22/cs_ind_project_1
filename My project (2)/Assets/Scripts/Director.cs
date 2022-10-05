@@ -5,57 +5,100 @@ using TMPro;
 
 public class Director : MonoBehaviour
 {
-    
+    #region vars
     public TMPro.TMP_Text waveText;
     private int wave = 0;
     private int enemyCount = 0;
     public float spawnDistance;
     private Transform[] spawns;
+    List<GameObject> enemies;
     public GameObject upgradeMenu;
     private UpgradeMenu upgrades;
-    public GameObject spawnPointContainer;
+    //public GameObject spawnPointContainer;
     public GameObject enemyPrefab;
     public GameObject player;
     public Camera cam;
     public Animator anim;
-    
-    // Start is called before the first frame update
+    #endregion
+    #region methods
     void Start()
     {
-        this.spawns = spawnPointContainer.GetComponentsInChildren<Transform>(false);
+        //this.spawns = spawnPointContainer.GetComponentsInChildren<Transform>(false);
         this.upgrades = upgradeMenu.GetComponent<UpgradeMenu>();
-        SetWave(1);
+        this.enemies = new List<GameObject>();
+        SetWave(0);
     }
 
     void LateUpdate()
     {
         if(enemyCount <= 0 && !PauseMenu.GamePaused)
         {
-            Debug.Log($"\tWave {this.wave} clear");
-            player.GetComponent<Health>().Heal(20);
+            Debug.Log($"Wave {this.wave} clear\n");
             OpenUpgradeMenu();
         }
     }
     
+    public void Save()
+    {
+        SaveSystem.Save(this.player, this.upgrades, this);
+    }
+
+    public void Load() // i hate this.
+    {
+        SaveData data = SaveSystem.Load();
+        if(data is not null)
+        {
+            Debug.Log("Data loading");
+            Debug.Log(data);
+            Vector2 position = new Vector2();
+            position.x = data.playerPosition[0];
+            position.y = data.playerPosition[1];
+            this.player.transform.position = position;
+            this.upgrades.currency = data.currency;
+            this.upgrades.hp.maxHealth = data.maxHealth;
+            this.upgrades.hp.SetHealth(data.health);
+            this.upgrades.movement.moveSpeed = data.moveSpeed;
+            this.upgrades.wep.damage = data.damage;
+            this.upgrades.wep.SetFireRate(data.fireRate);
+            this.upgrades.damageUpgradeCost = data.damageUpgradeCost;
+            this.upgrades.moveSpeedUpgradeCost = data.moveSpeedUpgradeCost;
+            this.upgrades.fireRateUpgradeCost = data.fireRateUpgradeCost;
+            this.upgrades.healthUpgradeCost = data.healthUpgradeCost;
+            this.ClearEnemies();
+            this.SetWave(data.wave);
+            Debug.Log("Loading finished");
+        }
+        else
+        {
+            Debug.Log("Load cancelled");
+            return;
+        }
+    }
+
     void OpenUpgradeMenu()
     {
+        Debug.Log("Opening upgrade menu");
         upgradeMenu.SetActive(true);
         Time.timeScale = 0f;
         PauseMenu.GamePaused = true;
+        upgrades.UpdateText();
+        Debug.Log("Opened upgrade menu");
     }
 
     public void CloseUpgradeMenu()
     {
+        Debug.Log("Closing upgrade menu");
         upgradeMenu.SetActive(false);
         SetWave(++this.wave);
         Time.timeScale = 1f;
         PauseMenu.GamePaused = false;
+        Debug.Log("Closed upgrade menu");
     }
 
     public void SetWave(int arg) {
         this.wave = arg;
         this.enemyCount = this.wave;
-        Debug.Log($"\tWave {this.wave} starting");
+        Debug.Log($"Wave {this.wave} starting");
         SetText();
         Spawn();
     }
@@ -77,7 +120,7 @@ public class Director : MonoBehaviour
         ret.x = player.transform.position.x + a;
         ret.y = Mathf.Sqrt(Mathf.Pow(c,2)-Mathf.Pow(a,2));
         ret.y = Random.Range(-1f, 1f) > 0 ? player.transform.position.y + ret.y : player.transform.position.y + ret.y * -1;
-        Debug.Log($"\tgenerated vector: ({ret.x}, {ret.y})");
+        //Debug.Log($"\tgenerated vector: ({ret.x}, {ret.y})");
         return ret;
     }
     
@@ -93,13 +136,25 @@ public class Director : MonoBehaviour
             unit.cam = this.cam;
             Health unitHealth = obj.GetComponent<Health>();
             unitHealth.director = this;
+            enemies.Add(obj);
         }
         Debug.Log($"\t{this.enemyCount} units spawned");
+    }
+
+    void ClearEnemies()
+    {
+        for(int i = enemies.Count - 1; i >= 0; i--)
+        {
+            Destroy(enemies[i].gameObject);
+        }
+        Debug.Log("Enemies removed");
+        enemies.Clear();
     }
 
     void SetText()
     {
         if(waveText is not null) waveText.text = $"Wave {this.wave}";
-        anim.SetTrigger("WaveStart");
+        anim.SetTrigger("NewWave");
     }
+    #endregion
 }

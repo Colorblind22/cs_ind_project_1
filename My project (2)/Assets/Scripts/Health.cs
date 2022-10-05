@@ -20,6 +20,11 @@ public class Health : MonoBehaviour
         return this.health;
     }
 
+    public void SetHealth(float arg)
+    {
+        this.health = arg;
+    }
+
     public void Damage(float inflict)
     {
         this.health -= inflict;
@@ -50,7 +55,6 @@ public class Health : MonoBehaviour
     void Die()
     {
         Debug.Log($"{gameObject.name} died");
-        //if(parent.GetComponentInChildren<Move>() != null) director.PlayerDie();
         Destroy(gameObject);
         if(this.director is not null) this.director.EnemyDie();
     }

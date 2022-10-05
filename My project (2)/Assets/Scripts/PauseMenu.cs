@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    
+    #region vars
     public static bool GamePaused = false;
-
     public GameObject pauseUI;
-
+    #endregion
+    #region methods
     // Update is called once per frame
     void Update()
     {
@@ -47,4 +47,5 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("Quit game");
         Application.Quit();
     }
+    #endregion
 }

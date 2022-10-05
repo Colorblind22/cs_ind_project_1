@@ -20,7 +20,7 @@ public class ProjectileHandler : MonoBehaviour
         if(enemy != null)
         {
             enemy.Damage(this.damage);
-            Debug.Log($"{this.damage} damage dealt");
+            //Debug.Log($"{this.damage} damage dealt");
             Destroy(gameObject);
         }
         else if(other.GetComponent<ProjectileHandler>() != null || other.GetComponent<EnemyProjectileHandler>() != null) return;

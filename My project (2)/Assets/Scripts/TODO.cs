@@ -5,21 +5,7 @@ using UnityEngine;
 public class TODO : MonoBehaviour
 {
     /* to do
-        -fix the way the enemies move
         -investigate upgrades
-        
-        
-        
-        
-        
-        
-        
-        - implement a threat
-        - make a map?
-        
-        
-        - get healthbars to appear over things that are damaged
-            - ******** they now appear and disappear but i need to make them appear over things ********
         
         
         - different weapons

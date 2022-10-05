@@ -6,43 +6,48 @@ public class UpgradeMenu : MonoBehaviour
 {
     public GameObject menu;
     public GameObject player;
-    private Weapon wep;
-    private Health hp;
-    private Move movement;
-    public TMPro.TMP_Text currencyDisplay;
-    public TMPro.TMP_Text healthLabel;
-    public TMPro.TMP_Text moveSpeedLabel;
-    public TMPro.TMP_Text damageLabel;
-    public TMPro.TMP_Text fireRateLabel;
-    public TMPro.TMP_Text healLabel;
-    public TMPro.TMP_Text healthCostLabel;
-    public TMPro.TMP_Text moveSpeedCostLabel;
-    public TMPro.TMP_Text damageCostLabel;
-    public TMPro.TMP_Text fireRateCostLabel;
-    public TMPro.TMP_Text healCostLabel;
-    public float damageUpgradeAmount = 5f;
-    public float damageCap = 100f;
-    public float moveSpeedUpgradeAmount = 1f;
-    public float moveSpeedCap = 15f;
-    public float fireRateUpgradeAmount = 50f;
-    public float fireRateCap = 1000f;
-    public float healthUpgradeAmount = 10f;
-    public float healthCap = 200f;
-    public float healAmount = 20f;
-    public int damageUpgradeCost = 2,
+    public Weapon wep;
+    public Health hp;
+    public Move movement;
+    public TMPro.TMP_Text 
+    currencyDisplay,
+    healthLabel,
+    moveSpeedLabel,
+    damageLabel,
+    fireRateLabel,
+    healLabel,
+    healthCostLabel,
+    moveSpeedCostLabel,
+    damageCostLabel,
+    fireRateCostLabel,
+    healCostLabel;
+
+    public float 
+    damageUpgradeAmount = 5f,
+    damageCap = 100f,
+    moveSpeedUpgradeAmount = 1f,
+    moveSpeedCap = 15f,
+    fireRateUpgradeAmount = 50f,
+    fireRateCap = 1000f,
+    healthUpgradeAmount = 10f,
+    healthCap = 200f,
+    healAmount = 20f;
+    
+    public int 
+    damageUpgradeCost = 2,
     moveSpeedUpgradeCost = 2,
     fireRateUpgradeCost = 2,
-    healthUpgradeCost = 2;
-    public int healCost = 10;
+    healthUpgradeCost = 2,
+    healCost = 10;
 
-    int damageUpgradeCount = 0,
+    int 
+    damageUpgradeCount = 0,
     moveSpeedUpgradeCount = 0,
     fireRateUpgradeCount = 0,
     healthUpgradeCount = 0;
 
     public int currency = 0;
-    
-    //use these eventually to limit upgrades. for now work on display & function
+
 
     void Start()
     {
@@ -52,13 +57,10 @@ public class UpgradeMenu : MonoBehaviour
         AddCurrency(0);
         UpdateText();
     }
-    
     public void AddCurrency(int add)
     {
-        this.currency += add;
-        UpdateText();
+        currencyDisplay.text = $"{this.currency+=add}";
     }
-
     public void UpgradeDamage()
     {
         if(wep.damage < this.damageCap && currency >= damageUpgradeCost)
@@ -108,25 +110,31 @@ public class UpgradeMenu : MonoBehaviour
     {
         if(hp.maxHealth > hp.GetHealth() && currency >= healCost)
         {
-            Debug.Log("Healing");
+            Debug.Log($"Healing {this.healAmount} health");
             hp.Heal(this.healAmount);
             currency -= healCost;
             UpdateText();
         }
     }
-
-    void UpdateText()
+    public void UpdateText()
     {
-        damageLabel.text = $"{wep.damage}";
-        moveSpeedLabel.text= $"{movement.moveSpeed}";
-        fireRateLabel.text = $"{wep.fireRate}";
-        healthLabel.text = $"{hp.maxHealth}";
-        healLabel.text = $"{hp.GetHealth()}/{hp.maxHealth}";
-        currencyDisplay.text = $"{this.currency}";
-        healthCostLabel.text = $"{this.healthUpgradeCost}";
-        moveSpeedCostLabel.text = $"{this.moveSpeedUpgradeCost}";
-        damageCostLabel.text = $"{this.damageUpgradeCost}";
-        fireRateCostLabel.text = $"{this.fireRateUpgradeCost}";
-        healCostLabel.text = $"{this.healCost}";
+        try {
+            damageLabel.text = $"{wep.damage}"; //wep.damage < this.damageCap ? $"{wep.damage}" : $"{wep.damage} (MAX)";
+            moveSpeedLabel.text = $"{movement.moveSpeed}";//movement.moveSpeed < this.moveSpeedCap ? $"{movement.moveSpeed}" : $"{movement.moveSpeed} (MAX)";
+            fireRateLabel.text = $"{wep.fireRate}";//wep.fireRate < this.fireRateCap ? $"{wep.fireRate}" : $"{wep.fireRate} (MAX)";
+            healthLabel.text = $"{hp.maxHealth}";//hp.maxHealth < this.healthCap ? $"{hp.maxHealth}" : $"{hp.maxHealth} (MAX)";
+            healLabel.text = $"{hp.GetHealth()}/{hp.maxHealth}";
+            currencyDisplay.text = $"{this.currency}";
+            healthCostLabel.text = $"{this.healthUpgradeCost}";
+            moveSpeedCostLabel.text = $"{this.moveSpeedUpgradeCost}";
+            damageCostLabel.text = $"{this.damageUpgradeCost}";
+            fireRateCostLabel.text = $"{this.fireRateUpgradeCost}";
+            healCostLabel.text = $"{this.healCost}";
+            Debug.Log("Text for UpgradeMenu updated");
+        }
+        catch
+        {
+            Debug.Log("error updating text");
+        }
     }
 }

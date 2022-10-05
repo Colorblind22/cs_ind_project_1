@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Confined;
-        this.RPMToInterval();
-    }
-
+    #region vars
     public Transform pivot;
     public Transform barrel;
     public GameObject projectilePrefab;
@@ -21,7 +15,13 @@ public class Weapon : MonoBehaviour
     private float fireCooldown = 0f;
     public float damage = 25f;
     private static int projectiles = 1;
-
+    #endregion
+    #region methods
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        this.RPMToInterval();
+    }
 
     public void SetFireRate(float input)
     {
@@ -34,19 +34,15 @@ public class Weapon : MonoBehaviour
     {
         var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(pivot.position);
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-        if(!PauseMenu.GamePaused) pivot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        cam.ScreenToWorldPoint(Input.mousePosition);
+        if(!PauseMenu.GamePaused) pivot.rotation = Quaternion.AngleAxis(angle, Vector3.forward); // look at cursor
+        //cam.ScreenToWorldPoint(Input.mousePosition);
 
         if(Input.GetButton("Fire1") && !PauseMenu.GamePaused && this.fireCooldown <= 0)
         {
             Fire();
             this.fireCooldown = this.fireInterval;
         }
-        else /*if(Input.GetButton("Fire1"))*/ this.fireCooldown -= Time.deltaTime;
-        //else this.fireCooldown = 0;
-
-        
+        else this.fireCooldown -= Time.deltaTime;
     }
 
     void Fire()
@@ -60,4 +56,5 @@ public class Weapon : MonoBehaviour
 
     // fire interval in seconds = 1/(rpm/60)
     void RPMToInterval() {this.fireInterval = 1/(this.fireRate/60);}
+    #endregion
 }
