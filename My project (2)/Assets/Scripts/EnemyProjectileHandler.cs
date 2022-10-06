@@ -7,7 +7,7 @@ public class EnemyProjectileHandler : MonoBehaviour
     #region vars
 	public float damage = 25f;
 	
-	    public float timeLimit = 10f;
+	public float timeLimit = 10f;
     #endregion
     #region methods
     void LateUpdate()
@@ -17,13 +17,13 @@ public class EnemyProjectileHandler : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        Health enemy = other.GetComponent<Health>();
+        PlayerHealth player = other.GetComponent<PlayerHealth>();
 
         if(other.GetComponentInChildren<Enemy>()) return;
 
-        if(enemy != null)
+        if(player != null)
         {
-            enemy.Damage(this.damage);
+            player.Damage(this.damage);
             Destroy(gameObject);
         }
         else if(other.GetComponent<ProjectileHandler>() != null || other.GetComponent<EnemyProjectileHandler>() != null) return;

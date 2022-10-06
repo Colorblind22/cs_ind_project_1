@@ -52,6 +52,7 @@ public class SaveData
             $"Data\n" +
             $"wave: {this.wave}\n" +
             $"currency: {this.currency}\n" +
+            $"position: ({this.playerPosition[0]}, {this.playerPosition[1]})\n" +
             $"health: {this.health}\n" +
             $"maxHealth: {this.maxHealth}\n" +
             $"moveSpeed: {this.moveSpeed}\n" +

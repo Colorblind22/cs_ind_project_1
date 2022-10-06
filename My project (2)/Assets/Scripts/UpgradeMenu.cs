@@ -7,7 +7,7 @@ public class UpgradeMenu : MonoBehaviour
     public GameObject menu;
     public GameObject player;
     public Weapon wep;
-    public Health hp;
+    public PlayerHealth hp;
     public Move movement;
     public TMPro.TMP_Text 
     currencyDisplay,
@@ -49,10 +49,11 @@ public class UpgradeMenu : MonoBehaviour
     public int currency = 0;
 
 
-    void Start()
+    public void Start()
     {
+        Debug.Log("UpgradeMenu.Start() called");
         wep = player.GetComponentInChildren<Weapon>();
-        hp = player.GetComponent<Health>();
+        hp = player.GetComponent<PlayerHealth>();
         movement = player.GetComponent<Move>();
         AddCurrency(0);
         UpdateText();

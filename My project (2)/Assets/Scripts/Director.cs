@@ -23,10 +23,19 @@ public class Director : MonoBehaviour
     #region methods
     void Start()
     {
+        Debug.Log("Director.Start() called");
         //this.spawns = spawnPointContainer.GetComponentsInChildren<Transform>(false);
         this.upgrades = upgradeMenu.GetComponent<UpgradeMenu>();
+        Debug.Log("Calling UpgradeMenu.Start() from Director.Start()");
+        upgrades.Start();
         this.enemies = new List<GameObject>();
-        SetWave(0);
+        if(Flags.LoadOnEnter)
+        {
+            Debug.Log("Resuming game");
+            Load();
+            Flags.LoadOnEnter = false;
+        }
+        else SetWave(0);
     }
 
     void LateUpdate()
@@ -105,10 +114,10 @@ public class Director : MonoBehaviour
     void SetEnemyCount(int arg) {this.enemyCount = arg;}
     public int GetWave() {return this.wave;}
     public int GetEnemyCount() {return this.enemyCount;}
-    public void EnemyDie() 
+    public int EnemyDie() 
     {
-        this.enemyCount--;
         upgrades.AddCurrency(2);
+        return --this.enemyCount;
     }
     
     Vector2 GenerateSpawnPosition()

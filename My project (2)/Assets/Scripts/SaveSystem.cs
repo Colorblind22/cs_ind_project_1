@@ -16,6 +16,7 @@ public static class SaveSystem
         stream.Close();
 
         Debug.Log($"data saved to {path}");
+        Debug.Log(data);
     }   
 
     public static SaveData Load()

@@ -8,8 +8,10 @@ public class PauseMenu : MonoBehaviour
     #region vars
     public static bool GamePaused = false;
     public GameObject pauseUI;
+
+    public Director dir;
     #endregion
-    #region methods
+    #region methods   
     // Update is called once per frame
     void Update()
     {
@@ -42,10 +44,11 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void QuitGame()
+    public void SaveAndExit()
     {
-        Debug.Log("Quit game");
-        Application.Quit();
+        Debug.Log("Saving and exiting to menu");
+        dir.Save();
+        this.Menu();
     }
     #endregion
 }

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public Animator animator;
+    public Director dir;
     
     public void Play()
     {
@@ -15,11 +16,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
-    // public void Resume()
-    // {
-    //     this.Play();
-    //     Director d = d;
-    // }
+    public void Resume()
+    {
+        Flags.LoadOnEnter = true;
+        this.Play();
+    }
 
     public void Quit()
     {
