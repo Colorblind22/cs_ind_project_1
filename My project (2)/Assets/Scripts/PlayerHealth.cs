@@ -55,5 +55,8 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         Debug.Log($"{gameObject.name} died...");
+        gameObject.SetActive(false);
+        Time.timeScale = 0f;
+        director.GameOver();
     }
 }

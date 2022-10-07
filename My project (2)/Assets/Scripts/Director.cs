@@ -119,6 +119,18 @@ public class Director : MonoBehaviour
         upgrades.AddCurrency(2);
         return --this.enemyCount;
     }
+
+    public void GameOver()
+    {
+       // bool newHighScore = false;
+        if(this.wave > PlayerPrefs.GetInt("HighScore"))
+        {
+            PlayerPrefs.SetInt("HighScore", this.wave);
+            //newHighScore = true;
+        }
+        //GameOverMenu.Activate(); or something
+        
+    }
     
     Vector2 GenerateSpawnPosition()
     {

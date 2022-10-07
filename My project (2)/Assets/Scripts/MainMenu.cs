@@ -6,7 +6,13 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public Animator animator;
-    public Director dir;
+    public TMPro.TMP_Text highScoreDisplay;
+    
+    void Start()
+    {
+        this.highScoreDisplay.text = 
+        $"Highest Wave: Wave {PlayerPrefs.GetInt("HighScore")}";
+    }
     
     public void Play()
     {
