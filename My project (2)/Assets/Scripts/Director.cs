@@ -13,7 +13,9 @@ public class Director : MonoBehaviour
     private Transform[] spawns;
     List<GameObject> enemies;
     public GameObject upgradeMenu;
-    private UpgradeMenu upgrades;
+    public UpgradeMenu upgrades;
+    public GameObject gameOver;
+    private GameOverMenu gameOverMenu;
     //public GameObject spawnPointContainer;
     public GameObject enemyPrefab;
     public GameObject player;
@@ -25,6 +27,8 @@ public class Director : MonoBehaviour
     {
         Debug.Log("Director.Start() called");
         //this.spawns = spawnPointContainer.GetComponentsInChildren<Transform>(false);
+        this.gameOverMenu = this.gameOver.GetComponent<GameOverMenu>();
+        this.gameOverMenu.director = this;
         this.upgrades = upgradeMenu.GetComponent<UpgradeMenu>();
         Debug.Log("Calling UpgradeMenu.Start() from Director.Start()");
         upgrades.Start();
@@ -117,19 +121,19 @@ public class Director : MonoBehaviour
     public int EnemyDie() 
     {
         upgrades.AddCurrency(2);
+        gameOverMenu.totalCurrency += 2;
+        gameOverMenu.enemiesDefeated++;
         return --this.enemyCount;
     }
 
     public void GameOver()
     {
-       // bool newHighScore = false;
         if(this.wave > PlayerPrefs.GetInt("HighScore"))
         {
             PlayerPrefs.SetInt("HighScore", this.wave);
-            //newHighScore = true;
+            gameOverMenu.newHighScore = true;
         }
-        //GameOverMenu.Activate(); or something
-        
+        gameOverMenu.Activate();
     }
     
     Vector2 GenerateSpawnPosition()
@@ -155,8 +159,7 @@ public class Director : MonoBehaviour
             Enemy unit = obj.GetComponentInChildren<Enemy>();
             unit.player = this.player.GetComponent<Transform>();
             unit.cam = this.cam;
-            Health unitHealth = obj.GetComponent<Health>();
-            unitHealth.director = this;
+            obj.GetComponent<Health>().director = this;
             enemies.Add(obj);
         }
         Debug.Log($"\t{this.enemyCount} units spawned");

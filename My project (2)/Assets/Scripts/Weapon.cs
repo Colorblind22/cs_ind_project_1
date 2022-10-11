@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour
     private float fireInterval;
     private float fireCooldown = 0f;
     public float damage = 25f;
-    private static int projectiles = 1;
+    public int projectiles = 1;
     #endregion
     #region methods
     void Start()

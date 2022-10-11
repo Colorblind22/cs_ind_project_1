@@ -38,4 +38,14 @@ public static class SaveSystem
             return null;
         }
     }
+
+    public static void Wipe()
+    {
+        string path = Application.persistentDataPath + "/GameState.fvn";
+        if(File.Exists(path))
+        {
+            File.Delete(path);
+            Debug.Log($"data wiped from {path}");
+        }
+    }
 }
