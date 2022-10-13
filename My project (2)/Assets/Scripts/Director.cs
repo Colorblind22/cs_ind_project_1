@@ -83,7 +83,7 @@ public class Director : MonoBehaviour
         }
         else
         {
-            Debug.Log("Load cancelled");
+            Debug.Log("Load cancelled as save was not found");
             return;
         }
     }

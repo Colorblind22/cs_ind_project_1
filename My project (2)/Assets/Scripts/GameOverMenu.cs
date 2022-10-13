@@ -39,6 +39,9 @@ public class GameOverMenu : MonoBehaviour
     public void Exit()
     {
         SaveSystem.Wipe();
-        Application.Quit();
+        Debug.Log("Back to main menu");
+        Time.timeScale = 1f;
+        PauseMenu.GamePaused = false;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 }

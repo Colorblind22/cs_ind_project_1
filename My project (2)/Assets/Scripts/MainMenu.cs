@@ -14,23 +14,28 @@ public class MainMenu : MonoBehaviour
         $"Highest Wave: Wave {PlayerPrefs.GetInt("HighScore")}";
     }
     
-    public void Play()
+    public void NewGame()
     {
-        Debug.Log("Playing game");
-        animator.SetTrigger("Play");
-        //WaitForSeconds();
-        SceneManager.LoadScene("Game");
+        StartCoroutine(this.Play());
     }
 
     public void Resume()
     {
         Flags.LoadOnEnter = true;
-        this.Play();
+        this.NewGame();
     }
 
     public void Quit()
     {
         Debug.Log("Closing game");
         Application.Quit();
+    }
+
+    IEnumerator Play()
+    {
+        Debug.Log("Playing game");
+        animator.SetTrigger("Play");
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("Game");
     }
 }

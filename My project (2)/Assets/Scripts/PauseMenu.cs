@@ -8,7 +8,6 @@ public class PauseMenu : MonoBehaviour
     #region vars
     public static bool GamePaused = false;
     public GameObject pauseUI;
-
     public Director dir;
     #endregion
     #region methods   
