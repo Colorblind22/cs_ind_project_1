@@ -15,11 +15,17 @@ public class GameOverMenu : MonoBehaviour
     waveLabel,
     statsTextBox;
     public Animator animator;
+    public Animator transitionAnimator;
     public Director director;
 
     public void Activate()
     {
         this.GetVariables();
+        if(PlayerPrefs.GetInt("HighScore") < this.wave)
+        {
+            PlayerPrefs.SetInt("HighScore", this.wave);
+            this.newHighScore = true;
+        }
         gameObject.SetActive(true);
         animator.SetTrigger("GameOver");
         waveLabel.text = $"Reached Wave {wave}";
@@ -40,8 +46,15 @@ public class GameOverMenu : MonoBehaviour
     {
         SaveSystem.Wipe();
         Debug.Log("Back to main menu");
-        Time.timeScale = 1f;
-        PauseMenu.GamePaused = false;
+        //Time.timeScale = 1f;
+        //PauseMenu.GamePaused = false;
+        StartCoroutine(this.FadeToMenu());
+    }
+
+    IEnumerator FadeToMenu()
+    {
+        transitionAnimator.SetTrigger("Play");
+        yield return new WaitForSeconds(1);
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 }

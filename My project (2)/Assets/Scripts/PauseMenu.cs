@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     public static bool GamePaused = false;
     public GameObject pauseUI;
     public Director dir;
+    public Animator anim;
     #endregion
     #region methods   
     // Update is called once per frame
@@ -36,18 +37,25 @@ public class PauseMenu : MonoBehaviour
         GamePaused = true;
     }
 
-    public void Menu()
+    IEnumerator Menu()
     {
         Debug.Log("Back to main menu");
         Resume();
+        anim.SetTrigger("Play");
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void BackToMenu()
+    {
+        StartCoroutine(this.Menu());
     }
 
     public void SaveAndExit()
     {
         Debug.Log("Saving and exiting to menu");
         dir.Save();
-        this.Menu();
+        BackToMenu();
     }
     #endregion
 }

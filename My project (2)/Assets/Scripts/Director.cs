@@ -30,7 +30,7 @@ public class Director : MonoBehaviour
         this.gameOverMenu = this.gameOver.GetComponent<GameOverMenu>();
         this.gameOverMenu.director = this;
         this.upgrades = upgradeMenu.GetComponent<UpgradeMenu>();
-        Debug.Log("Calling UpgradeMenu.Start() from Director.Start()");
+        //Debug.Log("Calling UpgradeMenu.Start() from Director.Start()");
         upgrades.Start();
         this.enemies = new List<GameObject>();
         if(Flags.LoadOnEnter)
@@ -39,7 +39,7 @@ public class Director : MonoBehaviour
             Load();
             Flags.LoadOnEnter = false;
         }
-        else SetWave(0);
+        else StartCoroutine(SetWave(1));
     }
 
     void LateUpdate()
@@ -78,12 +78,13 @@ public class Director : MonoBehaviour
             this.upgrades.fireRateUpgradeCost = data.fireRateUpgradeCost;
             this.upgrades.healthUpgradeCost = data.healthUpgradeCost;
             this.ClearEnemies();
-            this.SetWave(data.wave);
+            StartCoroutine(this.SetWave(data.wave));
             Debug.Log("Loading finished");
         }
         else
         {
             Debug.Log("Load cancelled as save was not found");
+            StartCoroutine(this.SetWave(1));
             return;
         }
     }
@@ -102,17 +103,18 @@ public class Director : MonoBehaviour
     {
         Debug.Log("Closing upgrade menu");
         upgradeMenu.SetActive(false);
-        SetWave(++this.wave);
+        StartCoroutine(SetWave(++this.wave));
         Time.timeScale = 1f;
         PauseMenu.GamePaused = false;
         Debug.Log("Closed upgrade menu");
     }
 
-    public void SetWave(int arg) {
+    IEnumerator SetWave(int arg) {
         this.wave = arg;
         this.enemyCount = this.wave;
         Debug.Log($"Wave {this.wave} starting");
         SetText();
+        yield return new WaitForSeconds(1);
         Spawn();
     }
     void SetEnemyCount(int arg) {this.enemyCount = arg;}
@@ -128,11 +130,6 @@ public class Director : MonoBehaviour
 
     public void GameOver()
     {
-        if(this.wave > PlayerPrefs.GetInt("HighScore"))
-        {
-            PlayerPrefs.SetInt("HighScore", this.wave);
-            gameOverMenu.newHighScore = true;
-        }
         gameOverMenu.Activate();
     }
     

@@ -14,10 +14,6 @@ public class MainMenu : MonoBehaviour
         $"Highest Wave: Wave {PlayerPrefs.GetInt("HighScore")}";
     }
     
-    public void NewGame()
-    {
-        StartCoroutine(this.Play());
-    }
 
     public void Resume()
     {
@@ -31,6 +27,10 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
+    public void NewGame()
+    {
+        StartCoroutine(this.Play());
+    }
     IEnumerator Play()
     {
         Debug.Log("Playing game");
@@ -38,4 +38,5 @@ public class MainMenu : MonoBehaviour
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene("Game");
     }
+
 }

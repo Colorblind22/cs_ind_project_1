@@ -1157,7 +1157,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 661996063}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: Menu
+        m_MethodName: BackToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2213,6 +2213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseUI: {fileID: 1231251736}
   dir: {fileID: 2050953382}
+  anim: {fileID: 1134886302}
 --- !u!1 &674738647
 GameObject:
   m_ObjectHideFlags: 0
@@ -3761,6 +3762,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1034915652}
   m_CullTransparentMesh: 1
+--- !u!1001 &1134886301
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3050226709706098293, guid: 87c43ade1d4b0ae4a81ae8b589ecdcd4, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050226709706098293, guid: 87c43ade1d4b0ae4a81ae8b589ecdcd4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050226709706098293, guid: 87c43ade1d4b0ae4a81ae8b589ecdcd4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050226709706098293, guid: 87c43ade1d4b0ae4a81ae8b589ecdcd4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050226709706098293, guid: 87c43ade1d4b0ae4a81ae8b589ecdcd4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050226709706098293, guid: 87c43ade1d4b0ae4a81ae8b589ecdcd4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050226709706098293, guid: 87c43ade1d4b0ae4a81ae8b589ecdcd4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050226709706098293, guid: 87c43ade1d4b0ae4a81ae8b589ecdcd4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050226709706098293, guid: 87c43ade1d4b0ae4a81ae8b589ecdcd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050226709706098293, guid: 87c43ade1d4b0ae4a81ae8b589ecdcd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050226709706098293, guid: 87c43ade1d4b0ae4a81ae8b589ecdcd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050226709706098294, guid: 87c43ade1d4b0ae4a81ae8b589ecdcd4, type: 3}
+      propertyPath: m_Name
+      value: LevelTransition
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 87c43ade1d4b0ae4a81ae8b589ecdcd4, type: 3}
+--- !u!95 &1134886302 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3050226709706098295, guid: 87c43ade1d4b0ae4a81ae8b589ecdcd4, type: 3}
+  m_PrefabInstance: {fileID: 1134886301}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1137259872
 GameObject:
   m_ObjectHideFlags: 0
@@ -3979,9 +4042,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 661996063}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: Menu
+      - m_Target: {fileID: 1179505643}
+        m_TargetAssemblyTypeName: GameOverMenu, Assembly-CSharp
+        m_MethodName: Exit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4331,6 +4394,7 @@ MonoBehaviour:
   waveLabel: {fileID: 84284997}
   statsTextBox: {fileID: 1328172138}
   animator: {fileID: 1179505640}
+  transitionAnimator: {fileID: 1134886302}
   director: {fileID: 2050953382}
 --- !u!1 &1226644547
 GameObject:
@@ -5179,9 +5243,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menu: {fileID: 1653604498}
   player: {fileID: 82277366}
-  wep: {fileID: 0}
-  hp: {fileID: 0}
-  movement: {fileID: 0}
+  wep: {fileID: 11021826}
+  hp: {fileID: 82277372}
+  movement: {fileID: 82277367}
   currencyDisplay: {fileID: 1226644549}
   healthLabel: {fileID: 918585349}
   moveSpeedLabel: {fileID: 634597858}
