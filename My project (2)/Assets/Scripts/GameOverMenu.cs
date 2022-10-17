@@ -36,7 +36,7 @@ public class GameOverMenu : MonoBehaviour
         newHighScoreLabel.SetActive(newHighScore);
     }
 
-    void GetVariables()
+    public void GetVariables()
     {
         this.wave = director.GetWave();
         this.projectiles = director.upgrades.wep.projectiles;

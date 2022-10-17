@@ -38,9 +38,7 @@ public class UpgradeMenu : MonoBehaviour
     moveSpeedUpgradeCost = 2,
     fireRateUpgradeCost = 2,
     healthUpgradeCost = 2,
-    healCost = 10;
-
-    int 
+    healCost = 10,
     damageUpgradeCount = 0,
     moveSpeedUpgradeCount = 0,
     fireRateUpgradeCount = 0,

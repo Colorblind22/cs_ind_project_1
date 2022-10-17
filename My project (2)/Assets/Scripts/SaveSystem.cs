@@ -4,13 +4,13 @@ using UnityEngine;
 
 public static class SaveSystem
 {
-    public static void Save(GameObject player, UpgradeMenu upgrades, Director director)
+    public static void Save(GameObject player, UpgradeMenu upgrades, Director director, GameOverMenu gameOver)
     {
         BinaryFormatter bf = new BinaryFormatter();
         string path = Application.persistentDataPath + "/GameState.fvn";
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        SaveData data = new SaveData(player, upgrades, director);
+        SaveData data = new SaveData(player, upgrades, director, gameOver);
 
         bf.Serialize(stream, data);
         stream.Close();

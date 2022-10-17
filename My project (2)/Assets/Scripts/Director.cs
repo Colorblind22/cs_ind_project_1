@@ -40,6 +40,7 @@ public class Director : MonoBehaviour
             Flags.LoadOnEnter = false;
         }
         else StartCoroutine(SetWave(1));
+        upgrades.UpdateText();
     }
 
     void LateUpdate()
@@ -53,13 +54,13 @@ public class Director : MonoBehaviour
     
     public void Save()
     {
-        SaveSystem.Save(this.player, this.upgrades, this);
+        SaveSystem.Save(this.player, this.upgrades, this, this.gameOverMenu);
     }
 
     public void Load() // i hate this.
     {
         SaveData data = SaveSystem.Load();
-        if(data is not null)
+        if(data is not null) // set variables to values saved
         {
             Debug.Log("Data loading");
             Debug.Log(data);
@@ -77,10 +78,17 @@ public class Director : MonoBehaviour
             this.upgrades.moveSpeedUpgradeCost = data.moveSpeedUpgradeCost;
             this.upgrades.fireRateUpgradeCost = data.fireRateUpgradeCost;
             this.upgrades.healthUpgradeCost = data.healthUpgradeCost;
+            this.upgrades.damageUpgradeCount = data.damageUpgradeCount;
+            this.upgrades.moveSpeedUpgradeCount = data.moveSpeedUpgradeCount;
+            this.upgrades.fireRateUpgradeCount = data.fireRateUpgradeCount;
+            this.upgrades.healthUpgradeCount = data.healthUpgradeCount;
+            this.gameOverMenu.projectiles = data.projectiles;
+            this.gameOverMenu.enemiesDefeated = data.enemiesDefeated;
+            this.gameOverMenu.totalCurrency = data.totalCurrency;
             this.ClearEnemies();
             StartCoroutine(this.SetWave(data.wave));
             Debug.Log("Loading finished");
-        }
+        } 
         else
         {
             Debug.Log("Load cancelled as save was not found");

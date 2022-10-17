@@ -21,9 +21,18 @@ public class SaveData
     damageUpgradeCost,
     moveSpeedUpgradeCost,
     fireRateUpgradeCost,
-    healthUpgradeCost;
+    healthUpgradeCost,
+    damageUpgradeCount,
+    moveSpeedUpgradeCount,
+    fireRateUpgradeCount,
+    healthUpgradeCount;
 
-    public SaveData(GameObject player, UpgradeMenu upgrades, Director director)
+    public int
+    projectiles,
+    enemiesDefeated,
+    totalCurrency;
+
+    public SaveData(GameObject player, UpgradeMenu upgrades, Director director, GameOverMenu gameOver)
     {
         this.currency = upgrades.currency;
 
@@ -43,6 +52,14 @@ public class SaveData
         this.moveSpeedUpgradeCost = upgrades.moveSpeedUpgradeCost;
         this.fireRateUpgradeCost = upgrades.fireRateUpgradeCost;
         this.healthUpgradeCost = upgrades.healthUpgradeCost;
+        this.damageUpgradeCount = upgrades.damageUpgradeCount;
+        this.moveSpeedUpgradeCount = upgrades.moveSpeedUpgradeCount;
+        this.fireRateUpgradeCount = upgrades.fireRateUpgradeCount;
+        this.healthUpgradeCount = upgrades.healthUpgradeCount;
+
+        this.projectiles = gameOver.projectiles;
+        this.enemiesDefeated = gameOver.enemiesDefeated;
+        this.totalCurrency = gameOver.totalCurrency;
     }
 
     public override string ToString()
@@ -61,7 +78,11 @@ public class SaveData
             $"healthUpgradeCost: {this.healthUpgradeCost}\n" +
             $"moveSpeedUpgradeCost: {this.moveSpeedUpgradeCost}\n" +
             $"damageUpgradeCost: {this.damageUpgradeCost}\n" +
-            $"fireRateUpgradeCost: {this.fireRateUpgradeCost}\n"
+            $"fireRateUpgradeCost: {this.fireRateUpgradeCost}\n" +
+            $"healthUpgradeCount: {this.healthUpgradeCount}\n" +
+            $"moveSpeedUpgradeCount: {this.moveSpeedUpgradeCount}\n" +
+            $"damageUpgradeCount: {this.damageUpgradeCount}\n" +
+            $"fireRateUpgradeCount: {this.fireRateUpgradeCount}\n"
         );
     }
 }

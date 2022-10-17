@@ -54,6 +54,7 @@ public class PauseMenu : MonoBehaviour
     public void SaveAndExit()
     {
         Debug.Log("Saving and exiting to menu");
+        dir.CloseUpgradeMenu();
         dir.Save();
         BackToMenu();
     }
