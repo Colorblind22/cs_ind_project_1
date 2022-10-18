@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     public static bool GamePaused = false;
     public GameObject pauseUI;
     public Director dir;
+    public Animator levelTransition;
     public Animator anim;
     #endregion
     #region methods   
@@ -24,24 +25,38 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         Debug.Log("Resumed game");
-        pauseUI.SetActive(false);
-        Time.timeScale = 1f;
-        GamePaused = false;
+        StartCoroutine(this.FadeOut());
     }
 
     void Pause()
     {
+        StartCoroutine(this.FadeIn());
         Debug.Log("Paused game");
+    }
+
+    IEnumerator FadeIn()
+    {
         pauseUI.SetActive(true);
+        this.anim.SetTrigger("FadeIn");
+        yield return new WaitForSeconds(.25f);
         Time.timeScale = 0f;
         GamePaused = true;
+    }
+
+    IEnumerator FadeOut()
+    {
+        Time.timeScale = 1f;
+        this.anim.SetTrigger("FadeOut");
+        yield return new WaitForSeconds(.25f);
+        pauseUI.SetActive(false);
+        GamePaused = false;
     }
 
     IEnumerator Menu()
     {
         Debug.Log("Back to main menu");
         Resume();
-        anim.SetTrigger("Play");
+        levelTransition.SetTrigger("Play");
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene("MainMenu");
     }
@@ -54,7 +69,7 @@ public class PauseMenu : MonoBehaviour
     public void SaveAndExit()
     {
         Debug.Log("Saving and exiting to menu");
-        dir.CloseUpgradeMenu();
+        StartCoroutine(dir.CloseUpgradeMenu());
         dir.Save();
         BackToMenu();
     }

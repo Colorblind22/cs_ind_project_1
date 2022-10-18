@@ -21,6 +21,8 @@ public class Director : MonoBehaviour
     public GameObject player;
     public Camera cam;
     public Animator anim;
+    public Animator upgradeAnim;
+    bool cleared;
     #endregion
     #region methods
     void Start()
@@ -45,10 +47,11 @@ public class Director : MonoBehaviour
 
     void LateUpdate()
     {
-        if(enemyCount <= 0 && !PauseMenu.GamePaused)
+        if(enemyCount <= 0 && !PauseMenu.GamePaused && !cleared)
         {
+            this.cleared = true;
             Debug.Log($"Wave {this.wave} clear\n");
-            OpenUpgradeMenu();
+            StartCoroutine(OpenUpgradeMenu());
         }
     }
     
@@ -97,24 +100,32 @@ public class Director : MonoBehaviour
         }
     }
 
-    void OpenUpgradeMenu()
+    IEnumerator OpenUpgradeMenu()
     {
         Debug.Log("Opening upgrade menu");
         upgradeMenu.SetActive(true);
+        upgradeAnim.SetTrigger("FadeIn");
+        yield return new WaitForSeconds(.25f);
         Time.timeScale = 0f;
         PauseMenu.GamePaused = true;
         upgrades.UpdateText();
-        Debug.Log("Opened upgrade menu");
     }
 
-    public void CloseUpgradeMenu()
+    public IEnumerator CloseUpgradeMenu()
     {
         Debug.Log("Closing upgrade menu");
+        Time.timeScale = 1f;
+        upgradeAnim.SetTrigger("FadeOut");
+        yield return new WaitForSeconds(.25f);
         upgradeMenu.SetActive(false);
         StartCoroutine(SetWave(++this.wave));
-        Time.timeScale = 1f;
         PauseMenu.GamePaused = false;
-        Debug.Log("Closed upgrade menu");
+        this.cleared = false;
+    }
+
+    public void NextWave()
+    {
+        StartCoroutine(CloseUpgradeMenu());
     }
 
     IEnumerator SetWave(int arg) {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UpgradeMenu : MonoBehaviour
 {
+    #region vars
     public GameObject menu;
     public GameObject player;
     public Weapon wep;
@@ -45,7 +46,7 @@ public class UpgradeMenu : MonoBehaviour
     healthUpgradeCount = 0;
 
     public int currency = 0;
-
+    #endregion
 
     public void Start()
     {
