@@ -37,10 +37,10 @@ public class PauseMenu : MonoBehaviour
     IEnumerator FadeIn()
     {
         pauseUI.SetActive(true);
+        GamePaused = true;
         this.anim.SetTrigger("FadeIn");
         yield return new WaitForSeconds(.25f);
         Time.timeScale = 0f;
-        GamePaused = true;
     }
 
     IEnumerator FadeOut()

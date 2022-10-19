@@ -5705,7 +5705,7 @@ MonoBehaviour:
   moveSpeedUpgradeAmount: 1
   moveSpeedCap: 15
   fireRateUpgradeAmount: 50
-  fireRateCap: 1000
+  fireRateCap: 800
   healthUpgradeAmount: 10
   healthCap: 200
   healAmount: 20

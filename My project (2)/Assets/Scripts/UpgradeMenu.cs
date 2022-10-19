@@ -45,6 +45,12 @@ public class UpgradeMenu : MonoBehaviour
     fireRateUpgradeCount = 0,
     healthUpgradeCount = 0;
 
+    bool
+    damageMaxed = false,
+    moveSpeedMaxed = false,
+    healthMaxed = false,
+    fireRateMaxed = false;
+
     public int currency = 0;
     #endregion
 
@@ -63,7 +69,7 @@ public class UpgradeMenu : MonoBehaviour
     }
     public void UpgradeDamage()
     {
-        if(wep.damage < this.damageCap && currency >= damageUpgradeCost)
+        if(!damageMaxed && currency >= damageUpgradeCost)
         {
             Debug.Log("damage upgraded");
             wep.damage += this.damageUpgradeAmount;
@@ -71,10 +77,11 @@ public class UpgradeMenu : MonoBehaviour
             damageUpgradeCost += 1 * ++damageUpgradeCount;
             UpdateText();
         }
+        if(!(wep.damage < this.damageCap)) this.damageMaxed=true;
     }
     public void UpgradeMoveSpeed()
     {
-        if (movement.moveSpeed < this.moveSpeedCap && currency >= moveSpeedUpgradeCost)
+        if(!moveSpeedMaxed && currency >= moveSpeedUpgradeCost)
         {
             Debug.Log("movespeed upgraded");
             movement.moveSpeed += this.moveSpeedUpgradeAmount;
@@ -82,10 +89,11 @@ public class UpgradeMenu : MonoBehaviour
             moveSpeedUpgradeCost += 1 * ++moveSpeedUpgradeCount;
             UpdateText();
         }
+        if(!(movement.moveSpeed < this.moveSpeedCap)) this.moveSpeedMaxed=true;
     }
     public void UpgradeFireRate()
     {
-        if (wep.fireRate < this.fireRateCap && currency >= fireRateUpgradeCost)
+        if (!fireRateMaxed && currency >= fireRateUpgradeCost)
         {
             Debug.Log("fire rate upgraded");
             wep.SetFireRate(wep.fireRate + this.fireRateUpgradeAmount);
@@ -93,10 +101,11 @@ public class UpgradeMenu : MonoBehaviour
             fireRateUpgradeCost += 1 * ++fireRateUpgradeCount;
             UpdateText();
         }
+        if(!(wep.fireRate < this.fireRateCap)) this.fireRateMaxed=true;
     }
     public void UpgradeHealth()
     {
-        if (hp.maxHealth < this.healthCap && currency >= healthUpgradeCost)
+        if (!healthMaxed && currency >= healthUpgradeCost)
         {
             Debug.Log("health upgraded");
             hp.maxHealth += this.healthUpgradeAmount;
@@ -105,6 +114,7 @@ public class UpgradeMenu : MonoBehaviour
             healthUpgradeCost += 1*++healthUpgradeCount;
             UpdateText();
         }
+        if(!(hp.maxHealth < this.healthCap)) this.healthMaxed=true;
     }
     public void Heal()
     {
@@ -119,10 +129,10 @@ public class UpgradeMenu : MonoBehaviour
     public void UpdateText()
     {
         try {
-            damageLabel.text = $"{wep.damage}"; //wep.damage < this.damageCap ? $"{wep.damage}" : $"{wep.damage} (MAX)";
-            moveSpeedLabel.text = $"{movement.moveSpeed}";//movement.moveSpeed < this.moveSpeedCap ? $"{movement.moveSpeed}" : $"{movement.moveSpeed} (MAX)";
-            fireRateLabel.text = $"{wep.fireRate}";//wep.fireRate < this.fireRateCap ? $"{wep.fireRate}" : $"{wep.fireRate} (MAX)";
-            healthLabel.text = $"{hp.maxHealth}";//hp.maxHealth < this.healthCap ? $"{hp.maxHealth}" : $"{hp.maxHealth} (MAX)";
+            damageLabel.text = !damageMaxed ? $"{wep.damage}" : $"{wep.damage} (MAX)"; 
+            moveSpeedLabel.text = !moveSpeedMaxed ? $"{movement.moveSpeed}" : $"{movement.moveSpeed} (MAX)";
+            fireRateLabel.text = !fireRateMaxed ? $"{wep.fireRate}" : $"{wep.fireRate} (MAX)";
+            healthLabel.text = !healthMaxed ? $"{hp.maxHealth}" : $"{hp.maxHealth} (MAX)";
             healLabel.text = $"{hp.GetHealth()}/{hp.maxHealth}";
             currencyDisplay.text = $"{this.currency}";
             healthCostLabel.text = $"{this.healthUpgradeCost}";

@@ -104,10 +104,10 @@ public class Director : MonoBehaviour
     {
         Debug.Log("Opening upgrade menu");
         upgradeMenu.SetActive(true);
+        PauseMenu.GamePaused = true;
         upgradeAnim.SetTrigger("FadeIn");
         yield return new WaitForSeconds(.25f);
         Time.timeScale = 0f;
-        PauseMenu.GamePaused = true;
         upgrades.UpdateText();
     }
 

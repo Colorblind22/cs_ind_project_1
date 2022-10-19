@@ -28,7 +28,11 @@ public class Enemy : MonoBehaviour
         Vector2 dir = player.position - pivot.position;
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         pivot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        if(fireTimer <= 0 && !PauseMenu.GamePaused) Fire();
+        if(this.fireTimer <= 0 && !PauseMenu.GamePaused) 
+        {
+            //Debug.Log($"fireTimer = {this.fireTimer}, firing");
+            Fire();
+        }
     }
 
     void FixedUpdate()
@@ -40,7 +44,7 @@ public class Enemy : MonoBehaviour
             this.fireTimer = this.fireCooldown;
         }
         else if(!PauseMenu.GamePaused && fireTimer > 0) fireTimer -= Time.deltaTime;
-        else this.fireCooldown = 0;
+        //else this.fireCooldown = 0; // i dont know why this line was here and it was causing the rapidfire bug
     }
 
     float DistanceFromPlayer()
@@ -61,5 +65,6 @@ public class Enemy : MonoBehaviour
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         rb.AddForce(barrel.right * projectileForce, ForceMode2D.Impulse);
         this.fireTimer = this.fireCooldown;
+        //Debug.Log($"Firetimer reset to {this.fireTimer}");
     }
 }
