@@ -56,7 +56,7 @@ public class UpgradeMenu : MonoBehaviour
 
     public void Start()
     {
-        Debug.Log("UpgradeMenu.Start() called");
+        //Debug.Log("UpgradeMenu.Start() called");
         wep = player.GetComponentInChildren<Weapon>();
         hp = player.GetComponent<PlayerHealth>();
         movement = player.GetComponent<Move>();

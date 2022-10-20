@@ -22,7 +22,10 @@ public class Director : MonoBehaviour
     public Camera cam;
     public Animator anim;
     public Animator upgradeAnim;
-    bool cleared;
+    
+    bool 
+    goingToNextWave,
+    cleared;
     #endregion
     #region methods
     void Start()
@@ -113,14 +116,17 @@ public class Director : MonoBehaviour
 
     public IEnumerator CloseUpgradeMenu()
     {
-        Debug.Log("Closing upgrade menu");
-        Time.timeScale = 1f;
-        upgradeAnim.SetTrigger("FadeOut");
-        yield return new WaitForSeconds(.25f);
-        upgradeMenu.SetActive(false);
-        StartCoroutine(SetWave(++this.wave));
-        PauseMenu.GamePaused = false;
-        this.cleared = false;
+        if(!goingToNextWave)
+        {
+            this.goingToNextWave = true;
+            Debug.Log("Closing upgrade menu");
+            Time.timeScale = 1f;
+            upgradeAnim.SetTrigger("FadeOut");
+            yield return new WaitForSeconds(.25f);
+            upgradeMenu.SetActive(false);
+            StartCoroutine(SetWave(++this.wave));
+            PauseMenu.GamePaused = false;
+        }
     }
 
     public void NextWave()
@@ -130,11 +136,13 @@ public class Director : MonoBehaviour
 
     IEnumerator SetWave(int arg) {
         this.wave = arg;
-        this.enemyCount = this.wave;
         Debug.Log($"Wave {this.wave} starting");
+        this.enemyCount = this.wave;
         SetText();
         yield return new WaitForSeconds(1);
         Spawn();
+        this.goingToNextWave = false;
+        this.cleared = false;
     }
     void SetEnemyCount(int arg) {this.enemyCount = arg;}
     public int GetWave() {return this.wave;}
