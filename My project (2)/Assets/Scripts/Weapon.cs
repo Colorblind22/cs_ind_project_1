@@ -34,7 +34,7 @@ public class Weapon : MonoBehaviour
     {
         var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(pivot.position);
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        /*if(!PauseMenu.GamePaused)*/ 
+        /*if(!PauseMenu.GamePaused)*/
         pivot.rotation = Quaternion.AngleAxis(angle, Vector3.forward); // look at cursor
         //cam.ScreenToWorldPoint(Input.mousePosition);
 

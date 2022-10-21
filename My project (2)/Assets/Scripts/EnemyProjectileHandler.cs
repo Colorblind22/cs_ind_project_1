@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyProjectileHandler : MonoBehaviour
 {
     #region vars
-	public float damage = 25f;
+	public float damage = 12f;
 	
 	public float timeLimit = 10f;
     #endregion

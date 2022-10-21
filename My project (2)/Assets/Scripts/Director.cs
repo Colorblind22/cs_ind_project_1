@@ -6,7 +6,9 @@ using TMPro;
 public class Director : MonoBehaviour
 {
     #region vars
+    public float upgradeFactor = 1f;
     public TMPro.TMP_Text waveText;
+    public GameObject upgradeNotification;
     private int wave = 0;
     private int enemyCount = 0;
     public float spawnDistance;
@@ -129,6 +131,7 @@ public class Director : MonoBehaviour
         }
     }
 
+
     public void NextWave()
     {
         StartCoroutine(CloseUpgradeMenu());
@@ -138,11 +141,19 @@ public class Director : MonoBehaviour
         this.wave = arg;
         Debug.Log($"Wave {this.wave} starting");
         this.enemyCount = this.wave;
+        if(wave % 5 == 0) StartCoroutine(EnemyUpgrade());
         SetText();
         yield return new WaitForSeconds(1);
         Spawn();
         this.goingToNextWave = false;
         this.cleared = false;
+    }
+    IEnumerator EnemyUpgrade()
+    {
+        upgradeFactor += 0.1f;
+        if(upgradeNotification is not null) upgradeNotification.SetActive(true);
+        yield return new WaitForSeconds(1);
+        if(upgradeNotification is not null) upgradeNotification.SetActive(false);
     }
     void SetEnemyCount(int arg) {this.enemyCount = arg;}
     public int GetWave() {return this.wave;}
@@ -181,6 +192,7 @@ public class Director : MonoBehaviour
             GameObject obj = Instantiate(enemyPrefab, GenerateSpawnPosition()/*point.position*/, Quaternion.identity);
             obj.name = $"Enemy {i+1}";
             Enemy unit = obj.GetComponentInChildren<Enemy>();
+            unit.stats = new EnemyStats(upgradeFactor);
             unit.player = this.player.GetComponent<Transform>();
             unit.cam = this.cam;
             obj.GetComponent<Health>().director = this;
@@ -202,6 +214,7 @@ public class Director : MonoBehaviour
     void SetText()
     {
         if(waveText is not null) waveText.text = $"Wave {this.wave}";
+        if(upgradeNotification is not null) 
         anim.SetTrigger("NewWave");
     }
     #endregion

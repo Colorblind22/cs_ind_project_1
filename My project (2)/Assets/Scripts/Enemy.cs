@@ -10,16 +10,14 @@ public class Enemy : MonoBehaviour
     public GameObject projectilePrefab;
     public Camera cam;
     public Transform player;
-    public float moveSpeed = 5f;
-    public float projectileForce = 5f;
-    public float visionRange = 5f;
-    public float fireCooldown = 1.5f;
+    public EnemyStats stats;
     private float fireTimer;
     static int enemyProjectiles = 1;
 
     void Start()
     {
-        this.fireTimer = this.fireCooldown;
+        this.fireTimer = this.stats.fireCooldown;
+        //this.stats = new EnemyStats();
     }
 
     // Update is called once per frame
@@ -38,13 +36,13 @@ public class Enemy : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 dir = player.position - pivot.position;
-        if(DistanceFromPlayer() > visionRange)
+        if(DistanceFromPlayer() > stats.visionRange)
         {
-            rigidBody.AddForce((new Vector2(player.position.x-pivot.position.x, player.position.y-pivot.position.y)) * moveSpeed * Time.fixedDeltaTime);
-            this.fireTimer = this.fireCooldown;
+            rigidBody.AddForce((new Vector2(player.position.x-pivot.position.x, player.position.y-pivot.position.y)) * stats.moveSpeed * Time.fixedDeltaTime);
+            this.fireTimer = this.stats.fireCooldown;
         }
         else if(!PauseMenu.GamePaused && fireTimer > 0) fireTimer -= Time.deltaTime;
-        //else this.fireCooldown = 0; // i dont know why this line was here and it was causing the rapidfire bug
+        //else this.stats.fireCooldown = 0; // i dont know why this line was here and it was causing the rapidfire bug
     }
 
     float DistanceFromPlayer()
@@ -61,10 +59,12 @@ public class Enemy : MonoBehaviour
     void Fire()
     {
         GameObject projectile = Instantiate(projectilePrefab, barrel.position, barrel.rotation);
+        EnemyProjectileHandler projectileHandler = projectile.GetComponent<EnemyProjectileHandler>();
+        projectileHandler.damage = stats.damage;
         projectile.name = $"Enemy projectile {enemyProjectiles++}";
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-        rb.AddForce(barrel.right * projectileForce, ForceMode2D.Impulse);
-        this.fireTimer = this.fireCooldown;
+        rb.AddForce(barrel.right * stats.projectileForce, ForceMode2D.Impulse);
+        this.fireTimer = this.stats.fireCooldown;
         //Debug.Log($"Firetimer reset to {this.fireTimer}");
     }
 }
