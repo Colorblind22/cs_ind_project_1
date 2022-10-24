@@ -21,7 +21,7 @@ public class Director : MonoBehaviour
     //public GameObject spawnPointContainer;
     public GameObject enemyPrefab;
     public GameObject player;
-    public Camera cam;
+    //public Camera cam;
     public Animator anim;
     public Animator upgradeAnim;
     
@@ -194,7 +194,7 @@ public class Director : MonoBehaviour
             Enemy unit = obj.GetComponentInChildren<Enemy>();
             unit.stats = new EnemyStats(upgradeFactor);
             unit.player = this.player.GetComponent<Transform>();
-            unit.cam = this.cam;
+            //unit.cam = this.cam;
             obj.GetComponent<Health>().director = this;
             enemies.Add(obj);
         }

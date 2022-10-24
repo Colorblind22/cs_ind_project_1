@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     public Transform pivot;
     public Transform barrel;
     public GameObject projectilePrefab;
-    public Camera cam;
+    //public Camera cam;
     public Transform player;
     public EnemyStats stats;
     private float fireTimer;
