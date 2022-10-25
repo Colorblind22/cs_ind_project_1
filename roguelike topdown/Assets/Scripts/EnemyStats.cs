@@ -28,4 +28,16 @@ public class EnemyStats
         this.fireCooldown = .45f;
         this.damage = 12f * factor;
     }
+
+    public override string ToString()
+    {
+        return 
+        (
+            $"moveSpeed: {this.moveSpeed}\n" +
+            $"projectileForce: {this.projectileForce}\n" +
+            $"visionRange: {this.visionRange}\n" +
+            $"fireCooldown: {this.fireCooldown}\n" +
+            $"damage: {this.damage}"
+        );
+    }
 }

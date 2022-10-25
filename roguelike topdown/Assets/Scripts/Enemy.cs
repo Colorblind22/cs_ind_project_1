@@ -11,12 +11,14 @@ public class Enemy : MonoBehaviour
     //public Camera cam;
     public Transform player;
     public EnemyStats stats;
+    public float moveSpeed = 5f;
     private float fireTimer;
     static int enemyProjectiles = 1;
 
     void Start()
     {
         this.fireTimer = this.stats.fireCooldown;
+        
         //this.stats = new EnemyStats();
     }
 
@@ -35,10 +37,10 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector2 dir = player.position - pivot.position;
+        //Vector2 dir = player.position - pivot.position;
         if(DistanceFromPlayer() > stats.visionRange)
         {
-            rigidBody.AddForce((new Vector2(player.position.x-pivot.position.x, player.position.y-pivot.position.y)) * stats.moveSpeed * Time.fixedDeltaTime);
+            rigidBody.AddForce((new Vector2(player.position.x-pivot.position.x, player.position.y-pivot.position.y)) * this.moveSpeed * Time.fixedDeltaTime);
             this.fireTimer = this.stats.fireCooldown;
         }
         else if(!PauseMenu.GamePaused && fireTimer > 0) fireTimer -= Time.deltaTime;

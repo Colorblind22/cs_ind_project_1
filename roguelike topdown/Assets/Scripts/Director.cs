@@ -93,6 +93,7 @@ public class Director : MonoBehaviour
             this.gameOverMenu.projectiles = data.projectiles;
             this.gameOverMenu.enemiesDefeated = data.enemiesDefeated;
             this.gameOverMenu.totalCurrency = data.totalCurrency;
+            //this.upgradeFactor = data.upgradeFactor;
             this.ClearEnemies();
             StartCoroutine(this.SetWave(data.wave));
             Debug.Log("Loading finished");
@@ -142,6 +143,7 @@ public class Director : MonoBehaviour
         Debug.Log($"Wave {this.wave} starting");
         this.enemyCount = this.wave;
         if(wave % 5 == 0) StartCoroutine(EnemyUpgrade());
+        this.upgradeFactor = this.CalculateUpgradeFactor();
         SetText();
         yield return new WaitForSeconds(1);
         Spawn();
@@ -154,6 +156,10 @@ public class Director : MonoBehaviour
         if(upgradeNotification is not null) upgradeNotification.SetActive(true);
         yield return new WaitForSeconds(1);
         if(upgradeNotification is not null) upgradeNotification.SetActive(false);
+    }
+    float CalculateUpgradeFactor()
+    {
+        return 1f + (0.1f * (int)(wave/5));
     }
     void SetEnemyCount(int arg) {this.enemyCount = arg;}
     public int GetWave() {return this.wave;}
@@ -192,7 +198,9 @@ public class Director : MonoBehaviour
             GameObject obj = Instantiate(enemyPrefab, GenerateSpawnPosition()/*point.position*/, Quaternion.identity);
             obj.name = $"Enemy {i+1}";
             Enemy unit = obj.GetComponentInChildren<Enemy>();
-            unit.stats = new EnemyStats(upgradeFactor);
+            EnemyStats statPackage = new EnemyStats(upgradeFactor);
+            Debug.Log(statPackage);
+            unit.stats = statPackage;
             unit.player = this.player.GetComponent<Transform>();
             //unit.cam = this.cam;
             obj.GetComponent<Health>().director = this;

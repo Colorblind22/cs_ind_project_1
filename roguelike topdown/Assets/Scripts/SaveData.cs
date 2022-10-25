@@ -31,6 +31,7 @@ public class SaveData
     projectiles,
     enemiesDefeated,
     totalCurrency;
+    //public float upgradeFactor;
 
     public SaveData(GameObject player, UpgradeMenu upgrades, Director director, GameOverMenu gameOver)
     {
@@ -60,6 +61,8 @@ public class SaveData
         this.projectiles = gameOver.projectiles;
         this.enemiesDefeated = gameOver.enemiesDefeated;
         this.totalCurrency = gameOver.totalCurrency;
+
+        //this.upgradeFactor = director.upgradeFactor;
     }
 
     public override string ToString()
@@ -82,7 +85,8 @@ public class SaveData
             $"healthUpgradeCount: {this.healthUpgradeCount}\n" +
             $"moveSpeedUpgradeCount: {this.moveSpeedUpgradeCount}\n" +
             $"damageUpgradeCount: {this.damageUpgradeCount}\n" +
-            $"fireRateUpgradeCount: {this.fireRateUpgradeCount}\n"
+            $"fireRateUpgradeCount: {this.fireRateUpgradeCount}\n" /*+
+            $"upgradeFactor: {this.upgradeFactor}"*/
         );
     }
 }
