@@ -7,8 +7,8 @@ public class PauseMenu : MonoBehaviour
 {
     #region vars
     public static bool GamePaused = false;
-    public GameObject pauseUI;
-    public Director dir;
+    public GameObject upgradeMenu;
+    public Director director;
     public Animator levelTransition;
     public Animator anim;
     #endregion
@@ -18,7 +18,7 @@ public class PauseMenu : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if(GamePaused) Resume(); else Pause();
+            if(!upgradeMenu.activeInHierarchy) if(!GamePaused) Pause(); else Resume();
         }
     }
 
@@ -36,7 +36,7 @@ public class PauseMenu : MonoBehaviour
 
     IEnumerator FadeIn()
     {
-        pauseUI.SetActive(true);
+        gameObject.SetActive(true);
         GamePaused = true;
         this.anim.SetTrigger("FadeIn");
         yield return new WaitForSeconds(.25f);
@@ -46,9 +46,9 @@ public class PauseMenu : MonoBehaviour
     IEnumerator FadeOut()
     {
         Time.timeScale = 1f;
-        this.anim.SetTrigger("FadeOut");
+        //this.anim.SetTrigger("FadeOut");
         yield return new WaitForSeconds(.25f);
-        pauseUI.SetActive(false);
+        gameObject.SetActive(false);
         GamePaused = false;
     }
 
@@ -69,8 +69,8 @@ public class PauseMenu : MonoBehaviour
     public void SaveAndExit()
     {
         Debug.Log("Saving and exiting to menu");
-        StartCoroutine(dir.CloseUpgradeMenu());
-        dir.Save();
+        StartCoroutine(upgradeMenu.GetComponent<UpgradeMenu>().Close());
+        director.Save();
         BackToMenu();
     }
     #endregion

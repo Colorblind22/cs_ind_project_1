@@ -25,8 +25,7 @@ public class Director : MonoBehaviour
     public Animator anim;
     public Animator upgradeAnim;
     
-    bool 
-    goingToNextWave,
+    bool
     cleared;
     #endregion
     #region methods
@@ -46,7 +45,7 @@ public class Director : MonoBehaviour
             Load();
             Flags.LoadOnEnter = false;
         }
-        else StartCoroutine(SetWave(1));
+        else SetWave(1);//StartCoroutine(SetWave(1));
         upgrades.UpdateText();
     }
 
@@ -56,7 +55,7 @@ public class Director : MonoBehaviour
         {
             this.cleared = true;
             Debug.Log($"Wave {this.wave} clear\n");
-            StartCoroutine(OpenUpgradeMenu());
+            StartCoroutine(upgrades.Open());
         }
     }
     
@@ -95,72 +94,58 @@ public class Director : MonoBehaviour
             this.gameOverMenu.totalCurrency = data.totalCurrency;
             //this.upgradeFactor = data.upgradeFactor;
             this.ClearEnemies();
-            StartCoroutine(this.SetWave(data.wave));
+            //StartCoroutine(this.SetWave(data.wave));
+            this.SetWave(data.wave);
             Debug.Log("Loading finished");
         } 
         else
         {
             Debug.Log("Load cancelled as save was not found");
-            StartCoroutine(this.SetWave(1));
+            //StartCoroutine(this.SetWave(1));
+            this.SetWave(1);
             return;
         }
     }
 
-    IEnumerator OpenUpgradeMenu()
-    {
-        Debug.Log("Opening upgrade menu");
-        upgradeMenu.SetActive(true);
-        PauseMenu.GamePaused = true;
-        upgradeAnim.SetTrigger("FadeIn");
-        yield return new WaitForSeconds(.25f);
-        Time.timeScale = 0f;
-        upgrades.UpdateText();
-    }
-
-    public IEnumerator CloseUpgradeMenu()
-    {
-        if(!goingToNextWave)
-        {
-            this.goingToNextWave = true;
-            Debug.Log("Closing upgrade menu");
-            Time.timeScale = 1f;
-            upgradeAnim.SetTrigger("FadeOut");
-            yield return new WaitForSeconds(.25f);
-            upgradeMenu.SetActive(false);
-            StartCoroutine(SetWave(++this.wave));
-            PauseMenu.GamePaused = false;
-        }
-    }
-
-
     public void NextWave()
     {
-        StartCoroutine(CloseUpgradeMenu());
+        StartCoroutine(upgrades.Close());
     }
 
-    IEnumerator SetWave(int arg) {
+    public /*IEnumerator*/ void SetWave(int arg) {
         this.wave = arg;
         Debug.Log($"Wave {this.wave} starting");
         this.enemyCount = this.wave;
-        if(wave % 5 == 0) StartCoroutine(EnemyUpgrade());
+        //if(wave % 5 == 0) StartCoroutine(EnemyUpgrade());
         this.upgradeFactor = this.CalculateUpgradeFactor();
+        Debug.Log($"Upgrade factor: {this.upgradeFactor}");
         SetText();
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(1);
+        Debug.Log("yielded (yeld?)");
         Spawn();
-        this.goingToNextWave = false;
+        upgrades.goingToNextWave = false;
         this.cleared = false;
     }
-    IEnumerator EnemyUpgrade()
+
+    /*IEnumerator EnemyUpgrade()
     {
         upgradeFactor += 0.1f;
         if(upgradeNotification is not null) upgradeNotification.SetActive(true);
         yield return new WaitForSeconds(1);
         if(upgradeNotification is not null) upgradeNotification.SetActive(false);
-    }
+    }*/
+
     float CalculateUpgradeFactor()
     {
         return 1f + (0.1f * (int)(wave/5));
     }
+
+    // for future hard mode?
+    /*float CalculateUpgradeFactor(float mult) 
+    {
+        return CalculateUpgradeFactor() * mult;
+    }*/
+
     void SetEnemyCount(int arg) {this.enemyCount = arg;}
     public int GetWave() {return this.wave;}
     public int GetEnemyCount() {return this.enemyCount;}
@@ -192,6 +177,7 @@ public class Director : MonoBehaviour
     
     void Spawn()
     {
+        Debug.Log($"\tSpawning {this.enemyCount} units");
         for(int i = 0; i < this.enemyCount; i++) // it feels wrong to have this many vars in a for loop
         {
             //Transform point = this.spawns[Random.Range(0,this.spawns.Length)];
@@ -199,7 +185,7 @@ public class Director : MonoBehaviour
             obj.name = $"Enemy {i+1}";
             Enemy unit = obj.GetComponentInChildren<Enemy>();
             EnemyStats statPackage = new EnemyStats(upgradeFactor);
-            Debug.Log(statPackage);
+            //Debug.Log(statPackage);
             unit.stats = statPackage;
             unit.player = this.player.GetComponent<Transform>();
             //unit.cam = this.cam;
@@ -222,8 +208,7 @@ public class Director : MonoBehaviour
     void SetText()
     {
         if(waveText is not null) waveText.text = $"Wave {this.wave}";
-        if(upgradeNotification is not null) 
-        anim.SetTrigger("NewWave");
+        if(upgradeNotification is not null) anim.SetTrigger("NewWave");
     }
     #endregion
 }

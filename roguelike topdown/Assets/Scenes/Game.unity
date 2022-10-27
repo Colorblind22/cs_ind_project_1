@@ -399,7 +399,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.06764984, y: 5.4807}
+  m_AnchoredPosition: {x: 0.06765747, y: 5.480713}
   m_SizeDelta: {x: -1.3852, y: -14.8387}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &14868581
@@ -1006,7 +1006,7 @@ Transform:
   - {fileID: 1437410462}
   - {fileID: 914378189}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &82277370
 BoxCollider2D:
@@ -1243,7 +1243,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 3.26025, y: 1.24}
+  m_AnchoredPosition: {x: 3.260254, y: 1.24}
   m_SizeDelta: {x: 5, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114450908
@@ -1290,7 +1290,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 661996063}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: BackToMenu
         m_Mode: 1
@@ -1871,7 +1871,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Main Camera & UI
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1942,7 +1942,7 @@ Transform:
   m_Children:
   - {fileID: 661996062}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
@@ -1992,7 +1992,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.75, y: -0.7500001}
+  m_AnchoredPosition: {x: 2.75, y: -0.75}
   m_SizeDelta: {x: -5.5, y: -7.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &533581994
@@ -2374,7 +2374,6 @@ GameObject:
   - component: {fileID: 661996061}
   - component: {fileID: 661996060}
   - component: {fileID: 661996059}
-  - component: {fileID: 661996063}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -2469,22 +2468,6 @@ RectTransform:
   m_AnchoredPosition: {x: -14.2242, y: -8}
   m_SizeDelta: {x: 28.45, y: 16}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &661996063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 661996058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb505d7962e362742a7d5da03a2ae6fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseUI: {fileID: 1231251736}
-  dir: {fileID: 2050953382}
-  levelTransition: {fileID: 1134886302}
-  anim: {fileID: 1231251741}
 --- !u!1 &674738647
 GameObject:
   m_ObjectHideFlags: 0
@@ -3397,9 +3380,9 @@ RectTransform:
   m_Father: {fileID: 661996062}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -13.5, y: 7.34}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0.7249756, y: -0.66000366}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &883468466
@@ -3631,7 +3614,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 3.26025, y: 3}
+  m_AnchoredPosition: {x: 3.260254, y: 3}
   m_SizeDelta: {x: 5, y: 1.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &923912254
@@ -3678,7 +3661,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 661996063}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
@@ -3763,9 +3746,9 @@ RectTransform:
   m_Father: {fileID: 661996062}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -3}
   m_SizeDelta: {x: 12, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &927912026
@@ -4132,7 +4115,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 3.26025, y: -0.2376}
+  m_AnchoredPosition: {x: 3.260254, y: -0.2376}
   m_SizeDelta: {x: 5, y: 1.1707}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1137259874
@@ -4179,7 +4162,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 661996063}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: SaveAndExit
         m_Mode: 1
@@ -4700,9 +4683,9 @@ RectTransform:
   m_Father: {fileID: 661996062}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.86, y: 7.34}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 3.3649902, y: -0.66000366}
   m_SizeDelta: {x: 4, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1226644549
@@ -4815,6 +4798,7 @@ GameObject:
   - component: {fileID: 1231251738}
   - component: {fileID: 1231251740}
   - component: {fileID: 1231251741}
+  - component: {fileID: 1231251742}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -4843,7 +4827,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -5.33, y: 0}
+  m_AnchoredPosition: {x: -5.330017, y: 0}
   m_SizeDelta: {x: -22.0648, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1231251738
@@ -4916,6 +4900,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1231251742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231251736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb505d7962e362742a7d5da03a2ae6fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeMenu: {fileID: 1653604498}
+  director: {fileID: 2050953382}
+  levelTransition: {fileID: 1134886302}
+  anim: {fileID: 1231251741}
 --- !u!1 &1328172136
 GameObject:
   m_ObjectHideFlags: 0
@@ -5135,7 +5135,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 661996063}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: SaveAndExit
         m_Mode: 1
@@ -5689,6 +5689,9 @@ MonoBehaviour:
   wep: {fileID: 11021826}
   hp: {fileID: 82277372}
   movement: {fileID: 82277367}
+  dir: {fileID: 2050953382}
+  anim: {fileID: 1653604504}
+  goingToNextWave: 0
   currencyDisplay: {fileID: 1226644549}
   healthLabel: {fileID: 918585349}
   moveSpeedLabel: {fileID: 634597858}
@@ -5961,7 +5964,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -1.84, y: 1.8}
+  m_AnchoredPosition: {x: -1.8400002, y: 1.8}
   m_SizeDelta: {x: 3.1813, y: 1.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1701877871
@@ -6233,14 +6236,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77991b7aa5625fc4c90f7f7f2ff6f5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeFactor: 1
   waveText: {fileID: 927912026}
+  upgradeNotification: {fileID: 0}
   spawnDistance: 15
   upgradeMenu: {fileID: 1653604498}
   upgrades: {fileID: 1653604500}
   gameOver: {fileID: 1179505637}
   enemyPrefab: {fileID: 1490878767828159223, guid: cbde0925b34f0e94e81b585a5f22cf57, type: 3}
   player: {fileID: 82277366}
-  cam: {fileID: 519420031}
   anim: {fileID: 927912028}
   upgradeAnim: {fileID: 1653604504}
 --- !u!4 &2050953383

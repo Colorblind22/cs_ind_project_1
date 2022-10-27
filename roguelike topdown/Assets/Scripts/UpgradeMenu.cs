@@ -10,6 +10,10 @@ public class UpgradeMenu : MonoBehaviour
     public Weapon wep;
     public PlayerHealth hp;
     public Move movement;
+    public Director dir;
+    public Animator anim;
+    public bool goingToNextWave;
+
     public TMPro.TMP_Text 
     currencyDisplay,
     healthLabel,
@@ -126,6 +130,34 @@ public class UpgradeMenu : MonoBehaviour
             UpdateText();
         }
     }
+    
+    public IEnumerator Open()
+    {
+        Debug.Log("Opening upgrade menu");
+        gameObject.SetActive(true);
+        this.UpdateText();
+        PauseMenu.GamePaused = true;
+        anim.SetTrigger("FadeIn"); // move upgradeAnim to here
+        yield return new WaitForSeconds(.25f);
+        Time.timeScale = 0f;
+    }
+
+    public IEnumerator Close()
+    {
+        if(!goingToNextWave)
+        {
+            this.goingToNextWave = true;
+            Debug.Log("Closing upgrade menu");
+            Time.timeScale = 1f;
+            anim.SetTrigger("FadeOut");
+            yield return new WaitForSeconds(.25f);
+            PauseMenu.GamePaused = false;
+            //StartCoroutine(dir.SetWave(dir.GetWave()+1));
+            dir.SetWave(dir.GetWave()+1);
+            gameObject.SetActive(false);
+        }
+    }
+    
     public void UpdateText()
     {
         try {
@@ -140,11 +172,11 @@ public class UpgradeMenu : MonoBehaviour
             damageCostLabel.text = $"{this.damageUpgradeCost}";
             fireRateCostLabel.text = $"{this.fireRateUpgradeCost}";
             healCostLabel.text = $"{this.healCost}";
-            Debug.Log("Text for UpgradeMenu updated");
+            //Debug.Log("Text for UpgradeMenu updated");
         }
         catch
         {
-            Debug.Log("error updating text");
+            Debug.Log("error updating UpgradeMenu text");
         }
     }
 }

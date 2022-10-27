@@ -12,7 +12,7 @@ public class EnemyStats
 
     public EnemyStats()
     {
-        this.moveSpeed = 5f;
+        this.moveSpeed = 100f;
         this.projectileForce = 5f;
         this.visionRange = 10f;
         this.fireCooldown = .45f;
@@ -22,7 +22,7 @@ public class EnemyStats
     // where factor is a proportion, i.e. 110% = 1.1
     public EnemyStats(float factor) 
     {
-        this.moveSpeed = 5f * factor;
+        this.moveSpeed = 100f * factor;
         this.projectileForce = 5f * factor;
         this.visionRange = 10f;
         this.fireCooldown = .45f;
@@ -33,7 +33,7 @@ public class EnemyStats
     {
         return 
         (
-            $"moveSpeed: {this.moveSpeed}\n" +
+            $"moveSpeed: {this.moveSpeed}\t...\n" +
             $"projectileForce: {this.projectileForce}\n" +
             $"visionRange: {this.visionRange}\n" +
             $"fireCooldown: {this.fireCooldown}\n" +

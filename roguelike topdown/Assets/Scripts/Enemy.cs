@@ -11,15 +11,13 @@ public class Enemy : MonoBehaviour
     //public Camera cam;
     public Transform player;
     public EnemyStats stats;
-    public float moveSpeed = 5f;
+    //public float moveSpeed = 100f;
     private float fireTimer;
     static int enemyProjectiles = 1;
 
     void Start()
     {
-        this.fireTimer = this.stats.fireCooldown;
-        
-        //this.stats = new EnemyStats();
+        this.fireTimer = this.stats.fireCooldown;        
     }
 
     // Update is called once per frame
@@ -30,7 +28,6 @@ public class Enemy : MonoBehaviour
         pivot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         if(this.fireTimer <= 0 && !PauseMenu.GamePaused) 
         {
-            //Debug.Log($"fireTimer = {this.fireTimer}, firing");
             Fire();
         }
     }
@@ -40,19 +37,16 @@ public class Enemy : MonoBehaviour
         //Vector2 dir = player.position - pivot.position;
         if(DistanceFromPlayer() > stats.visionRange)
         {
-            rigidBody.AddForce((new Vector2(player.position.x-pivot.position.x, player.position.y-pivot.position.y)) * this.moveSpeed * Time.fixedDeltaTime);
+            Vector2 dir = new Vector2(player.position.x-pivot.position.x, player.position.y-pivot.position.y);
+            rigidBody.AddForce(dir * this.stats.moveSpeed * Time.fixedDeltaTime);
             this.fireTimer = this.stats.fireCooldown;
         }
         else if(!PauseMenu.GamePaused && fireTimer > 0) fireTimer -= Time.deltaTime;
         //else this.stats.fireCooldown = 0; // i dont know why this line was here and it was causing the rapidfire bug
     }
 
-    float DistanceFromPlayer()
+    float DistanceFromPlayer() // pythagorean theorem to find exact distance from player
     {
-        // a^2 + b^2 = c^2
-        // c = sqrt(a^2 + b^2)
-        // Mathf.Sqrt();
-
         float a = player.position.x - pivot.position.x;
         float b = player.position.y - pivot.position.y;
         return Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
@@ -67,6 +61,5 @@ public class Enemy : MonoBehaviour
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         rb.AddForce(barrel.right * stats.projectileForce, ForceMode2D.Impulse);
         this.fireTimer = this.stats.fireCooldown;
-        //Debug.Log($"Firetimer reset to {this.fireTimer}");
     }
 }
