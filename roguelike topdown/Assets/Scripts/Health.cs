@@ -54,7 +54,8 @@ public class Health : MonoBehaviour
 
     void Die()
     {
-        if(this.director is not null) Debug.Log($"{gameObject.name} died...\nenemycount: {this.director.EnemyDie()}");;
+        //if(this.director is not null) Debug.Log($"{gameObject.name} died...\nenemycount: {this.director.EnemyDie()}");;
+        this.director.EnemyDie();
         Destroy(gameObject);
     }
 }

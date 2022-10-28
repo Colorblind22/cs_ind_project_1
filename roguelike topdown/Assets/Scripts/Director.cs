@@ -16,6 +16,7 @@ public class Director : MonoBehaviour
     List<GameObject> enemies;
     public GameObject upgradeMenu;
     public UpgradeMenu upgrades;
+    public GameObject pauseUI;
     public GameObject gameOver;
     private GameOverMenu gameOverMenu;
     //public GameObject spawnPointContainer;
@@ -48,7 +49,7 @@ public class Director : MonoBehaviour
         else SetWave(1);//StartCoroutine(SetWave(1));
         upgrades.UpdateText();
     }
-
+    
     void LateUpdate()
     {
         if(enemyCount <= 0 && !PauseMenu.GamePaused && !cleared)

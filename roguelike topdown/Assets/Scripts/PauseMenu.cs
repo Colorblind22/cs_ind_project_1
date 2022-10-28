@@ -8,11 +8,13 @@ public class PauseMenu : MonoBehaviour
     #region vars
     public static bool GamePaused = false;
     public GameObject upgradeMenu;
+    public GameObject pauseUI;
     public Director director;
     public Animator levelTransition;
     public Animator anim;
     #endregion
     #region methods   
+    
     // Update is called once per frame
     void Update()
     {
@@ -28,7 +30,7 @@ public class PauseMenu : MonoBehaviour
         StartCoroutine(this.FadeOut());
     }
 
-    void Pause()
+    public void Pause()
     {
         StartCoroutine(this.FadeIn());
         Debug.Log("Paused game");
@@ -36,7 +38,7 @@ public class PauseMenu : MonoBehaviour
 
     IEnumerator FadeIn()
     {
-        gameObject.SetActive(true);
+        pauseUI.SetActive(true);
         GamePaused = true;
         this.anim.SetTrigger("FadeIn");
         yield return new WaitForSeconds(.25f);
@@ -48,7 +50,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         //this.anim.SetTrigger("FadeOut");
         yield return new WaitForSeconds(.25f);
-        gameObject.SetActive(false);
+        pauseUI.SetActive(false);
         GamePaused = false;
     }
 
